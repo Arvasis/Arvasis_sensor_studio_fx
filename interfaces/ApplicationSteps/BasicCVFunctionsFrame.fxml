@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="325.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <content>
+      <VBox prefHeight="648.0" prefWidth="320.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Auto White Balance" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Box Blur Filter" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Brightness By Reference" />
+            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Brightness" />
+            <Button layoutX="10.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Bump Filter" />
+            <Button layoutX="10.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Canny" />
+            <Button layoutX="10.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Canny For Map" />
+            <Button layoutX="10.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Circular Threshold For Map" />
+            <Button layoutX="10.0" layoutY="185.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Closing To Map" />
+            <Button layoutX="10.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Color Index Threshold For Map" />
+            <Button layoutX="10.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Contrast Filter" />
+            <Button layoutX="10.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Despeckle Filter" />
+            <Button layoutX="10.0" layoutY="285.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Dilation" />
+            <Button layoutX="10.0" layoutY="310.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Dilation To Map" />
+            <Button layoutX="10.0" layoutY="335.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Edge Filter" />
+            <Button layoutX="10.0" layoutY="360.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Erosion" />
+            <Button layoutX="10.0" layoutY="385.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Erosion To Map" />
+            <Button layoutX="10.0" layoutY="410.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Gain Filter" />
+            <Button layoutX="10.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Gamma Filter" />
+            <Button layoutX="10.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Gaussian Blur Filter" />
+            <Button layoutX="10.0" layoutY="485.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Gray Scale" />
+            <Button layoutX="10.0" layoutY="510.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Inverse Threshold" />
+            <Button layoutX="10.0" layoutY="535.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Inverse Threshold For Map" />
+            <Button layoutX="10.0" layoutY="560.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="LabThreshold For Map" />
+            <Button layoutX="10.0" layoutY="585.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Median Filter" />
+            <Button layoutX="10.0" layoutY="610.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Min Ratio Threshold For Map" />
+            <Button layoutX="10.0" layoutY="635.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Normal Distance Threshold For Map" />
+            <Button layoutX="10.0" layoutY="660.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Openning To Map" />
+            <Button layoutX="10.0" layoutY="685.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Parallel Canny For Map" />
+            <Button layoutX="10.0" layoutY="710.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Reduce Noise Filter" />
+            <Button layoutX="10.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Sharpen Filter" />
+            <Button layoutX="10.0" layoutY="760.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Sobel Filter" />
+            <Button layoutX="10.0" layoutY="785.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Solarize Filter" />
+            <Button layoutX="10.0" layoutY="810.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Threshold" />
+            <Button layoutX="10.0" layoutY="835.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="325.0" text="Value Threshold For Map" />
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

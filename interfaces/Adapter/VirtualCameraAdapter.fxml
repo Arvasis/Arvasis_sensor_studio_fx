@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="txtVirtualCam" editable="false" prefHeight="30.0" prefWidth="250.0" promptText="Virtual Camera Adapter">
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </TextField>
+      <Button fx:id="btnSelectFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#selectFile" prefHeight="30.0" prefWidth="30.0">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/selectFile.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#addImage" prefWidth="100.0" text="Ok">
+         <HBox.margin>
+            <Insets left="80.0" />
+         </HBox.margin>
+      </Button>
+   </children>
+</HBox>

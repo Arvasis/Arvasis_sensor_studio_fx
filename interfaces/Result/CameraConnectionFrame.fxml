@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CameraConnectionController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#readInput" prefWidth="325.0" text="Read Input">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#writeOutput" prefWidth="325.0" text="Write Output">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#openSendData" prefWidth="325.0" text="Send Data">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#socketListener" prefWidth="325.0" text="Socket Listener">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>

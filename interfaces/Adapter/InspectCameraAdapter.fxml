@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label text="Target IP:" />
+            <TextField>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label text="Target Port:" />
+            <TextField>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Label text="Camera Command:">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Label>
+      <TextArea maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0">
+         <VBox.margin>
+            <Insets left="30.0" top="10.0" />
+         </VBox.margin>
+      </TextArea>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Save" />
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Cancel" />
+         </children>
+         <VBox.margin>
+            <Insets top="50.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="20.0" />
+   </padding>
+</VBox>

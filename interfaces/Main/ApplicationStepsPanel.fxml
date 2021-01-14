@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Application Steps" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ApplicationStepsController">
+   <content>
+      <VBox prefHeight="420.0" prefWidth="200.0">
+         <children>
+            <TitledPane animated="false" text="Start">
+               <content>
+                  <VBox prefHeight="210.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#openConnectToCamera" prefHeight="25.0" prefWidth="180.0" text="Connect to Camera" />
+                        <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#openSetupCamera" prefHeight="25.0" prefWidth="180.0" text="Setup Camera" />
+                        <Button layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#openFlashSettings" prefHeight="25.0" prefWidth="180.0" text="Flash Settings" />
+                        <Button layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#openBasicCVFunctions" prefHeight="25.0" prefWidth="180.0" text="Basic CV Functions" />
+                        <Button layoutX="20.0" layoutY="95.0" mnemonicParsing="false" onAction="#openCondition" prefHeight="25.0" prefWidth="180.0" text="Condition" />
+                        <Button layoutX="20.0" layoutY="120.0" mnemonicParsing="false" onAction="#openLoop" prefHeight="25.0" prefWidth="180.0" text="Loop" />
+                     </children></VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Image Processing">
+               <content>
+                  <VBox prefHeight="120.0" prefWidth="190.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#openIdentification" prefHeight="25.0" prefWidth="180.0" text="Identification &amp; Locate" />
+                        <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#openAnalysis" prefHeight="25.0" prefWidth="180.0" text="Analysis &amp;  Measurement" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Results">
+               <content>
+                  <VBox prefHeight="100.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#openCameracommunication" prefHeight="25.0" prefWidth="180.0" text="Camera Communication" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Finish">
+               <content>
+                  <VBox prefHeight="55.0" prefWidth="100.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#run" prefHeight="25.0" prefWidth="180.0" text="Run" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+      </VBox>
+   </content>
+</TitledPane>

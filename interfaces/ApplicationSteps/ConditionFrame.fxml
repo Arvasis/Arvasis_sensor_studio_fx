@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConditionController">
+   <children>
+      <ScrollPane prefHeight="250.0" prefWidth="400.0">
+         <content>
+            <VBox fx:id="conditionsContent" prefHeight="238.0" prefWidth="398.0" />
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <CheckBox alignment="TOP_LEFT" mnemonicParsing="false" text="Else">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Button mnemonicParsing="false" onAction="#addElseIf" text="Add else if">
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" prefWidth="100.0" text="Ok" />
+            <Button mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

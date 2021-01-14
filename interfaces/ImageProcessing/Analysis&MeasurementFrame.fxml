@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AnalysisController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#readBarcode" prefWidth="325.0" text="Read Barcode">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#readText" prefWidth="325.0" text="Read Text">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#edgeParameters" prefWidth="325.0" text="Edge Parameters">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#imageCleaning" prefWidth="325.0" text="Image Cleaning">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#presenceAbsenceAnalysis" prefWidth="325.0" text="Presence Absence Analysis">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </Button>
+      <TitledPane animated="false" text="Measure Calculation">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#calculatePerimeter" prefWidth="325.0" text="Calculate Perimeter" />
+                  <Button layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#calculateArea" prefWidth="325.0" text="Calculate Area">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+   </children>
+</VBox>

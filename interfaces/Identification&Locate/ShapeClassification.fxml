@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button onAction="#openTrain" mnemonicParsing="false" prefWidth="150.0" text="Train">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+      <Button  onAction="#openDetection" mnemonicParsing="false" prefWidth="150.0" text="Detection">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
