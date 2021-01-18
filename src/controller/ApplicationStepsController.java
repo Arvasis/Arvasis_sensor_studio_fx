@@ -10,10 +10,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ApplicationStepsController {
+	//private AdapterController adapterController;
+	private MenuController menuController;
+	
+	public void setMenuController(MenuController menuController) {
+		this.menuController=menuController;
+	}
+	
 	@FXML
 	public void openConnectToCamera() {
 		try {
-			Parent adapterFrame=FXMLLoader.load(getClass().getResource("/ApplicationSteps/AdapterFrame.fxml"));
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("/ApplicationSteps/AdapterFrame.fxml"));
+			Parent adapterFrame=loader.load();
+			AdapterController adapterController=loader.getController();
+			adapterController.setMenuController(menuController);
 			Stage stage=new Stage();
 			stage.setTitle("choose Your Adapter");
 			stage.setScene(new Scene(adapterFrame));
@@ -114,4 +124,4 @@ public class ApplicationStepsController {
 	public void run() {
 		
 	}
-}
+	}
