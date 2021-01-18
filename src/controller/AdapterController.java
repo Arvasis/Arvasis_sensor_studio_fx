@@ -38,7 +38,7 @@ public class AdapterController implements Initializable {
 	private TextField txtVirtualCam;
 	
 	private File imageFile;
-	private Image image;
+	private Object image;
 	@FXML
 	private ComboBox<Object> cbAdapter;
 	ObservableList<Object> options = FXCollections.observableArrayList(new VirtualCamera(), new ArvasisInspectClient(),
@@ -92,7 +92,7 @@ public class AdapterController implements Initializable {
 			BufferedImage buff;
 			try {
 				buff = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
-				image = SwingFXUtils.toFXImage(buff, null);
+				image=buff;
 
 				
 			} catch (Exception e) {
@@ -105,7 +105,7 @@ public class AdapterController implements Initializable {
 	public void addImage() {
 		
 		Globals.mainController.setImage(image);
-		((Stage)cbAdapter.getScene().getWindow()).close();
+		((Stage)txtVirtualCam.getScene().getWindow()).close();
 
 	}
 	

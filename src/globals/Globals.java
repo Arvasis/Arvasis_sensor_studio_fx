@@ -41,22 +41,17 @@ public class Globals {
 	public static ResourceBundle rb;
 
 	public static MainController mainController;
-	
+
 	public static ArvasisJavaScriptEngine engine = new ArvasisJavaScriptEngine();
 
+	public static Object image;
 
-
-	public static BufferedImage image;
-	
+	public static ImageType imageType = ImageType.BufferedImage;
 
 	public enum ImageType {
 		BufferedImage, Integer, Boolean
 	}
-
-	// public static ArrayList<BufferedImage> arrTargetImage = new
-	// ArrayList<BufferedImage>();
-	// public static ArrayList<BufferedImage> arrSourceImage = new
-	// ArrayList<BufferedImage>();
+	
 	public static void setResourceBundle(String lang) {
 
 		if (lang.equals("TR")) {
@@ -66,57 +61,13 @@ public class Globals {
 			rb = ResourceBundle.getBundle(en, localeEN);
 		}
 	}
+
 	public static void setLanguage(String lang) {
 		setResourceBundle(lang);
 	}
+
 	public static ResourceBundle getLanguage() {
 		return rb;
-	}
-
-	public static TitledBorder getBorder(String titleName) {
-		Border loweredetched = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-		TitledBorder title = BorderFactory.createTitledBorder(loweredetched, titleName);
-		title.setTitleFont(new Font(" Serif", Font.BOLD | Font.PLAIN, 13));
-		title.setTitleColor(Color.black);
-		return title;
-	}
-
-	public static void setLabelValidator(Label label, String text) {
-		label.setText(text);
-		ActionListener listener1 = new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				label.setText("");
-			}
-		};
-		Timer timer1 = new Timer(3000, listener1);
-		timer1.setRepeats(false);
-		timer1.start();
-	}
-
-	public static void setDialogValidator(Component parentComp, String text) {
-		JOptionPane.showMessageDialog(parentComp, text, "UyarÄ±", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	public static void setDialogError(Component parentComp, String text) {
-		JOptionPane.showMessageDialog(parentComp, text, "Error", JOptionPane.ERROR_MESSAGE);
-	}
-
-	public static void setDialogValidatorTimer(Component parentComp, String text) {
-		JOptionPane pane = new JOptionPane(text, JOptionPane.INFORMATION_MESSAGE);
-		JDialog dialog = pane.createDialog(parentComp, "UyarÄ±");
-		dialog.setModal(false);
-		dialog.setVisible(true);
-
-		new Timer(3000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dialog.setVisible(false);
-			}
-		}).start();
-
 	}
 
 	public static boolean getImageType(Object image, String type, Component c) {
@@ -136,7 +87,7 @@ public class Globals {
 		String s = "Görüntü " + type + " türünde olmalıdır. Filtre uygulanamaz. �?uanki tür: " + val;
 		System.out.println("val-type:" + val + " - " + type);
 		if (!val.equals(type)) {
-			setDialogValidator(c, s);
+			//setDialogValidator(c, s);
 			return false;
 		} else
 			return true;
@@ -154,11 +105,19 @@ public class Globals {
 			sm.sendData(data, hasResponse);
 			sm.closeConnection();
 		} catch (Exception e) {
-			Globals.setDialogError(null, "Connection Failed.");
+			//Globals.setDialogError(null, "Connection Failed.");
 		}
 
 	}
-
+	public static Object runScript(Object image,String process) {
+		engine.putVar("image", image);
+		try {
+			engine.runScript(process);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return engine.getVar("image");
+	}
 	public static BufferedImage applyAllFilters(Object image, String process) {
 
 		engine.putVar("image", image);
