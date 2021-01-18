@@ -3,20 +3,16 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 import application.Main;
 import arvasis.camera.Camera;
 import globals.Globals;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,14 +39,8 @@ public class MenuController implements Initializable {
 
 	@FXML
 	public void newJob() {
-		/*
-		 * BorderPane mainPanel; try { mainPanel =
-		 * FXMLLoader.load(getClass().getResource("/ArvasisSensorStudio.fxml")); Scene
-		 * scene = new Scene(mainPanel, 1280, 720); Stage stage = new Stage();
-		 * stage.setTitle("Arvasis Sensor Studio"); stage.setScene(scene); stage.show();
-		 * } catch (IOException e) { e.printStackTrace(); }
-		 */
-		Main main = new Main();
+
+		Main main=new Main();
 		main.start(new Stage());
 	}
 
@@ -81,6 +71,10 @@ public class MenuController implements Initializable {
 	@FXML
 	public void clearHistory() {
 
+		//TODO Tree Clear fonksiyonu eklenecek
+		
+		Globals.jsCode="";
+		Globals.mainController.setImage(Globals.image);
 	}
 
 	@FXML
@@ -139,6 +133,11 @@ public class MenuController implements Initializable {
 
 	public void setCbCamera(ComboBox<Object> cbCamera) {
 		this.cbCamera = cbCamera;
+		cbLang.setItems(FXCollections.observableArrayList("EN","TR"));
+		lang=cbLang.getItems().get(0);
+		Globals.setLanguage(lang);
+		
+	
 	}
 	
 }

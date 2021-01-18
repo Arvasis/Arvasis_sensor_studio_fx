@@ -6,6 +6,12 @@ import java.rmi.server.LoaderHandler;
 import java.util.ResourceBundle;
 
 import globals.Globals;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import arvasis.drawing.GraphicsIO;
+import globals.Globals.ImageType;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,14 +31,43 @@ public class MainController implements Initializable {
 	public TitledPane applicationStepsPanel ;
 	public HBox menuPanel;
 	
-	public void setImage(Image image) {
+	public void setImage(Object image) {
 		
-		imagePanel.setImage(image);
-		System.out.println("img:"+image.getWidth()+" - "+image.getHeight());
-		System.out.println(imagePanel.getFitWidth()+" - "+imagePanel.getFitHeight());
+		imagePanel.setImage(convertObjectToImage(image));
+		
 	}
-	public Image getImage() {
-		return imagePanel.getImage();
+	public Object getImage() {
+		Image image=imagePanel.getImage();
+		return convertImageToObject(image);
+	}
+
+	public Image convertObjectToImage(Object obj) {
+		Image image;
+		BufferedImage buff =null;
+		if (Globals.imageType==ImageType.BufferedImage) {
+			buff=(BufferedImage)obj;
+		}
+		else if (Globals.imageType==ImageType.Integer) {
+			buff=GraphicsIO.convertArrayToImage((int[][])obj);
+
+		}else if (Globals.imageType==ImageType.Boolean) {
+			buff=GraphicsIO.convertMapToImage((boolean[][])obj);
+		}
+		image=SwingFXUtils.toFXImage(buff, null);
+		return image;
+	}
+	public Object convertImageToObject(Image image) {
+		Object obj=null;
+		BufferedImage buff=SwingFXUtils.fromFXImage(image, null);
+		obj=buff;
+		if (Globals.imageType==ImageType.Integer) {
+			obj=GraphicsIO.convertToIntegerArray(buff);
+
+		}else if (Globals.imageType==ImageType.Boolean) {
+			obj=GraphicsIO.convertImageToMap(buff);
+		}
+		
+		return obj;
 	}
 	
 	public HBox getMenuPanel() {
@@ -59,11 +94,6 @@ public class MainController implements Initializable {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-		
-		 
-		 
+			}	 
 	}
-	
 }
