@@ -27,6 +27,7 @@ import arvasis.camera.Camera;
 import arvasis.drawing.objects.PixelLocation;
 import arvasis.io.net.SocketManager;
 import arvasis.script.ArvasisJavaScriptEngine;
+
 import arvasis.tool.Label;
 import controller.MainController;
 
@@ -42,9 +43,14 @@ public class Globals {
 
 	public static MainController mainController;
 	
+    public static ArrayList<Camera> arrCam = new ArrayList<>();
+   // public static ArrayList<Object> arrImage = new ArrayList<>();
+    public static LinkedList<Object> llImage =  new LinkedList<>();
+    public  static LinkedList<Object> llProcessList = new LinkedList<>();
+    public static Object processString;
+    public static Camera cam;
+	
 	public static ArvasisJavaScriptEngine engine = new ArvasisJavaScriptEngine();
-
-
 
 	public static BufferedImage image;
 	
@@ -169,4 +175,16 @@ public class Globals {
 		}
 		return (BufferedImage) engine.getVar("image");
 	}
+	
+	public static void refreshArrCam() {
+	/*	Object[] o =Globals.arrCam.toArray();
+		MenuPanel.data = new Object[o.length][1];
+		for (int i = 0; i < o.length; i++) {
+			//System.out.println("arr "+o[i]);
+			
+			MenuPanel.data[i][0]= o[i];
+			MenuPanel.cbTakePhoto.setData(MenuPanel.data, MenuPanel.columnNames);*/
+		}
+		
+	
 }
