@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.sound.midi.VoiceStatus;
+
 import arvasis.camera.ArvasisDirectCaptureCamera;
 import arvasis.camera.ArvasisIDSCamera;
 import arvasis.camera.ArvasisIDSSocketCamera;
@@ -26,13 +28,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class AdapterController implements Initializable {
+
 	@FXML
 	private Button btnSelectFile;
 	@FXML
@@ -41,12 +46,20 @@ public class AdapterController implements Initializable {
 	private File imageFile;
 	private Object image;
 
+	private MenuController menuController;
+	
+	public void setMenuController(MenuController menuController) {
+		this.menuController=menuController;
+	}
+
 	@FXML
 	private ComboBox<Object> cbAdapter;
 	ObservableList<Object> options = FXCollections.observableArrayList(new VirtualCamera(), new ArvasisInspectClient(),
 			new ArvasisDirectCaptureCamera(), new ArvasisIDSCamera(), new ArvasisIDSSocketCamera(), new FsWebCamera(),
 			new PiCamera(), new VirtualStereoCamera(), new VlcCam());
 
+	
+	
 	@FXML
 	public void addAdapter() {
 		int index = cbAdapter.getSelectionModel().getSelectedIndex();
@@ -108,13 +121,27 @@ public class AdapterController implements Initializable {
 		
 		Globals.mainController.setImage(image);
 		((Stage)txtVirtualCam.getScene().getWindow()).close();
-
+			try {
+		
+			Camera camera = (Camera) cbAdapter.getSelectionModel().getSelectedItem();
+			Globals.cam = camera;
+			Globals.arrCam.add(camera);
+			//Globals.refreshArrCam();
+			
+			Globals.image = Globals.cam.getImage();
+			menuController.getCbCamera().getItems().add(camera);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cbAdapter.setPromptText("Select Adapter");
 		cbAdapter.setItems(options);
+		
 	}
 
 }
