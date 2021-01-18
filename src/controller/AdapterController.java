@@ -44,12 +44,14 @@ public class AdapterController implements Initializable {
 	private TextField txtVirtualCam;
 	
 	private File imageFile;
-	private Image image;
+	private Object image;
+
 	private MenuController menuController;
 	
 	public void setMenuController(MenuController menuController) {
 		this.menuController=menuController;
 	}
+
 	@FXML
 	private ComboBox<Object> cbAdapter;
 	ObservableList<Object> options = FXCollections.observableArrayList(new VirtualCamera(), new ArvasisInspectClient(),
@@ -104,8 +106,8 @@ public class AdapterController implements Initializable {
 			txtVirtualCam.setText(imageFile.getPath());
 			BufferedImage buff;
 			try {
-				buff = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
-				image = SwingFXUtils.toFXImage(buff, null);
+				image = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
+				
 
 				
 			} catch (Exception e) {
@@ -118,7 +120,7 @@ public class AdapterController implements Initializable {
 	public void addImage() {
 		
 		Globals.mainController.setImage(image);
-		((Stage)cbAdapter.getScene().getWindow()).close();
+		((Stage)txtVirtualCam.getScene().getWindow()).close();
 			try {
 		
 			Camera camera = (Camera) cbAdapter.getSelectionModel().getSelectedItem();
@@ -132,49 +134,7 @@ public class AdapterController implements Initializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-
-
-			//menuController.cbCamera.getItems().add(vcam);
-			//System.out.println(menuController.cbCamera.getItems());
-			//Adapter.rootNode.setImage(Globals.image);
-
-			//Globals.llImage.add(Globals.image);
-			//Globals.llProcessList.add("image=Globals.image");
-			
-		
-			//ArvasisSensorStudio.ip.setOriginalImage(Globals.image);
-			//ArvasisSensorStudio.ip.setImageCenterPanel(Globals.image);
-			//setVisible(false);
-			/*int index = cbAdapter.getSelectionModel().getSelectedIndex();
-			switch (index) {
-			case 0: {
-				VirtualCamera vc = new VirtualCamera();
-				vc.setImageUrl(imageFile.getPath());
-				Globals.cam = vc;
-				Globals.arrCam.add(vc);
-				//Globals.refreshArrCam();
-				System.out.println(vc);
-				Globals.image = Globals.cam.getImage();
-				menuController.getCbCamera().getItems().add(vc);
-				break;
-			}
-			case 1: {
-				ArvasisInspectClient aic = new ArvasisInspectClient();
-				System.out.println(aic);
 				
-				break;
-			}
-			default:
-				break;
-			}
-			
-			
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-	
 	}
 	
 	@Override
