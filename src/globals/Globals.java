@@ -29,6 +29,8 @@ import arvasis.io.net.SocketManager;
 import arvasis.script.ArvasisJavaScriptEngine;
 import arvasis.tool.Label;
 import controller.MainController;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 
 public class Globals {
 
@@ -45,9 +47,7 @@ public class Globals {
 	public static ArvasisJavaScriptEngine engine = new ArvasisJavaScriptEngine();
 
 	public static Object image;
-
-	public static ImageType imageType = ImageType.BufferedImage;
-
+	public static ImageType imageType=ImageType.BufferedImage;
 	public enum ImageType {
 		BufferedImage, Integer, Boolean
 	}
@@ -109,8 +109,9 @@ public class Globals {
 		}
 
 	}
-	public static Object runScript(Object image,String process) {
-		engine.putVar("image", image);
+
+	public static Object runScript(Object obj,String process) {
+		engine.putVar("image", obj);
 		try {
 			engine.runScript(process);
 		} catch (Exception e) {
@@ -118,14 +119,7 @@ public class Globals {
 		}
 		return engine.getVar("image");
 	}
-	public static BufferedImage applyAllFilters(Object image, String process) {
-
-		engine.putVar("image", image);
-		try {
-			engine.runScript(process);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return (BufferedImage) engine.getVar("image");
+	public static Object applyAllFilters(Object obj, String process) {
+		return runScript(obj,process);
 	}
 }

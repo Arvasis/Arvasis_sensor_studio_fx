@@ -10,6 +10,7 @@ import arvasis.camera.ArvasisDirectCaptureCamera;
 import arvasis.camera.ArvasisIDSCamera;
 import arvasis.camera.ArvasisIDSSocketCamera;
 import arvasis.camera.ArvasisInspectClient;
+import arvasis.camera.Camera;
 import arvasis.camera.FsWebCamera;
 import arvasis.camera.PiCamera;
 import arvasis.camera.VirtualCamera;
@@ -39,6 +40,7 @@ public class AdapterController implements Initializable {
 	
 	private File imageFile;
 	private Object image;
+
 	@FXML
 	private ComboBox<Object> cbAdapter;
 	ObservableList<Object> options = FXCollections.observableArrayList(new VirtualCamera(), new ArvasisInspectClient(),
@@ -91,8 +93,8 @@ public class AdapterController implements Initializable {
 			txtVirtualCam.setText(imageFile.getPath());
 			BufferedImage buff;
 			try {
-				buff = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
-				image=buff;
+				image = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
+				
 
 				
 			} catch (Exception e) {
