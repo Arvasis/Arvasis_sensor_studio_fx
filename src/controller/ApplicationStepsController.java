@@ -41,7 +41,7 @@ public class ApplicationStepsController {
 	@FXML
 	public void openBasicCVFunctions() {
 		try {
-			Parent basicCVFunc=FXMLLoader.load(getClass().getResource("/ApplicationSteps/BasicCVFunctionsFrame.fxml"));
+			Parent basicCVFunc=FXMLLoader.load(getClass().getResource("/ApplicationSteps/BasicCVFunctionsFrame2.fxml"));
 			Stage stage=new Stage();
 			stage.setTitle("Basic CV Functions");
 			stage.setScene(new Scene(basicCVFunc));

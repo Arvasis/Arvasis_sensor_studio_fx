@@ -18,7 +18,6 @@ public class Main extends Application {
 		
 			BorderPane mainPanel=loader.load();
 			Globals.mainController=loader.getController();
-			System.out.println(Globals.mainController);
 
 			Scene scene = new Scene(mainPanel,1280,720);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
