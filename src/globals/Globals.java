@@ -3,6 +3,7 @@ package globals;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -27,7 +28,7 @@ import arvasis.camera.Camera;
 import arvasis.drawing.objects.PixelLocation;
 import arvasis.io.net.SocketManager;
 import arvasis.script.ArvasisJavaScriptEngine;
-
+import arvasis.sensor.studio.tree.ArvasisTree;
 import arvasis.tool.Label;
 import controller.MainController;
 import javafx.embed.swing.SwingFXUtils;
@@ -46,6 +47,7 @@ public class Globals {
 	public static ResourceBundle rb;
 
 	public static MainController mainController;
+	public static boolean[][] mapParameter;
 
 	
     public static ArrayList<Camera> arrCam = new ArrayList<>();
@@ -55,6 +57,7 @@ public class Globals {
     public static Object processString;
     public static Camera cam;
 	
+    public static ArvasisTree tree;
 	public static ArvasisJavaScriptEngine engine = new ArvasisJavaScriptEngine();
 
 	// public static boolean[][] mapParameter;
@@ -123,7 +126,33 @@ public class Globals {
 		}
 
 	}
+	public static Object copyObject(Object obj) {
+		Object image = null;
+		if (obj instanceof BufferedImage) {
+			BufferedImage img = (BufferedImage) obj;
+			BufferedImage saveImage = copyImage(img);
+			image = saveImage;
+		}
 
+		if (obj instanceof int[][]) {
+			int[][] intImage = (int[][]) obj;
+			int[][] saveIntImage = Arrays.copyOf(intImage, intImage.length);
+			image = saveIntImage;
+		}
+		if (obj instanceof boolean[][]) {
+			boolean[][] mapImage = (boolean[][]) obj;
+			boolean[][] saveMapImage = Arrays.copyOf(mapImage, mapImage.length);
+			image = saveMapImage;
+		}
+		return image;
+	}
+	public static BufferedImage copyImage(BufferedImage source) {
+		BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+		Graphics g = b.getGraphics();
+		g.drawImage(source, 0, 0, null);
+		g.dispose();
+		return b;
+	}
 	public static Object runScript(Object obj,String process) {
 		engine.putVar("image", obj);
 		try {
@@ -132,6 +161,27 @@ public class Globals {
 			e.printStackTrace();
 		}
 		return engine.getVar("image");
+	}
+	public static Object runScript(Object obj,String varName,String process) {
+		engine.putVar(varName, obj);
+		try {
+			engine.runScript(process);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return engine.getVar(varName);
+	}
+	
+	public static Object runScript(String process) {
+		try {
+			engine.runScript(process);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return engine.getVar("image");
+	}
+	public static void addObjectToEngine(Object obj,String name) {
+		engine.putVar(name, obj);
 	}
 	public static Object applyAllFilters(Object obj, String process) {
 		return runScript(obj,process);

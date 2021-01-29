@@ -95,7 +95,7 @@ public class MenuController implements Initializable {
 
 	@FXML
 	public void openEditor() {
-
+		System.out.println(Globals.tree.getProcessString(Globals.tree.getRoot()));
 	}
 
 	@FXML

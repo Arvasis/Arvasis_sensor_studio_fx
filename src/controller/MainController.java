@@ -92,8 +92,14 @@ public class MainController implements Initializable {
 				mainPane.setLeft(applicationStepsPanel);
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	 
 	}
+	public ImageView getImagePanel() {
+		return imagePanel;
+	}
+	public void setImagePanel(ImageView imagePanel) {
+		this.imagePanel = imagePanel;
+	}
+	
 }

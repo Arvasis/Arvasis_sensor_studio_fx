@@ -3,6 +3,7 @@ package interfacebuilder;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.grid.GridView;
 import controller.identification.FiltersFrameController;
 import globals.Globals;
@@ -27,7 +28,8 @@ public abstract class FiltersFrame {
 	private Pane contentPane;
 	private Stage stage;
 	public Method selectedMethod;
-	
+	public String processString;
+
 	public FiltersFrame(String title) {
 		try {
 			
@@ -68,6 +70,7 @@ public abstract class FiltersFrame {
 	}
 	public void addFilter(Object image) {
 		//TODO add node with image to tree
+		Globals.tree.addChild(new TreeNode(selectedMethod.getName(),image,processString));
 		((Stage)grd.getScene().getWindow()).close();
 	}
 	public void deleteFilter() {
