@@ -18,18 +18,18 @@
       <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="LEFT">
          <children>
             <Pane prefHeight="10.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" prefWidth="150.0" text="Apply">
+            <Button fx:id="btnApply" mnemonicParsing="false" prefWidth="150.0" text="Apply">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <Button mnemonicParsing="false" prefWidth="200.0" text="Undo All Changes" GridPane.rowIndex="1" />
+      <Button fx:id="btnUndo" mnemonicParsing="false" prefWidth="200.0" text="Undo All Changes" GridPane.rowIndex="1" />
       <HBox alignment="BOTTOM_CENTER" prefHeight="50.0" prefWidth="200.0" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" prefWidth="200.0" text="Ok" />
-            <Button mnemonicParsing="false" prefWidth="200.0" text="Reject" />
+            <Button fx:id="btnOk" mnemonicParsing="false"  prefWidth="200.0" text="Ok" />
+            <Button fx:id="btnReject" mnemonicParsing="false" prefWidth="200.0" text="Reject" />
          </children>
       </HBox>
    </children>

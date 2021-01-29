@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tableRGB" editable="true" prefHeight="300.0" prefWidth="400.0">
+        <columns>
+          <TableColumn fx:id="rgb" onEditCommit="#onEditCommit" prefWidth="598.0" />
+        </columns>
+         <contextMenu>
+            <ContextMenu fx:id="cmPopup">
+              <items>
+                <MenuItem fx:id="popupAddRow" mnemonicParsing="false" onAction="#addRow" text="add Row" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Button fx:id="btnOk" alignment="TOP_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#enterRGB" prefHeight="25.0" prefWidth="648.0" text="Ok" />
+   </children>
+</VBox>
