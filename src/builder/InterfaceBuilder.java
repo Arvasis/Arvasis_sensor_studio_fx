@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.gitlab.haynes.paranamer.CachingParanamer;
 import com.gitlab.haynes.paranamer.Paranamer;
 
+import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
 import globals.Globals.ImageType;
@@ -91,7 +92,11 @@ public class InterfaceBuilder {
 					public void handle(ActionEvent arg0) {
 						try {
 							selectedMethod=method;
-							Object img=Globals.runScript(Globals.mainController.getImage(),getFunctionString(method));
+							processString=getFunctionString(method);
+							
+							Object image=Globals.mainController.getImage();
+							
+							Object img=Globals.runScript(image,processString);
 							Globals.mainController.setImage(img);
 						} catch (Exception e) {
 							e.printStackTrace();

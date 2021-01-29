@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.analysis.ReadController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
@@ -18,9 +17,13 @@
             </Label>
             <VBox prefHeight="100.0" prefWidth="259.0" spacing="15.0" HBox.hgrow="ALWAYS">
                <children>
-                  <CheckBox fx:id="chUseRobot" mnemonicParsing="false" text="Use Robot" />
-                  <CheckBox fx:id="chUseFile" mnemonicParsing="false" text="Use File" />
-                  <Button mnemonicParsing="false" onAction="#openFile" prefWidth="100.0" text="Open File" />
+                  <RadioButton fx:id="rbUseRobot" mnemonicParsing="false" text="Use Robot">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ReadOp" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbUseFile" mnemonicParsing="false" text="Use File" toggleGroup="$ReadOp" />
+                  <Button fx:id="btnOpenFile" disable="true" mnemonicParsing="false" onAction="#openFile" prefWidth="100.0" text="Open File" />
                </children>
                <HBox.margin>
                   <Insets />

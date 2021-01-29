@@ -19,6 +19,9 @@ import arvasis.camera.VirtualCamera;
 import arvasis.camera.VirtualStereoCamera;
 import arvasis.camera.VlcCam;
 import arvasis.drawing.GraphicsIO;
+import arvasis.sensor.studio.tree.ArvasisTree;
+import arvasis.sensor.studio.tree.TreeNode;
+import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,7 +122,6 @@ public class AdapterController implements Initializable {
 	@FXML
 	public void addImage() {
 		
-		Globals.mainController.setImage(image);
 		((Stage)txtVirtualCam.getScene().getWindow()).close();
 			try {
 		
@@ -127,14 +129,20 @@ public class AdapterController implements Initializable {
 			Globals.cam = camera;
 			Globals.arrCam.add(camera);
 			//Globals.refreshArrCam();
+			if (camera instanceof VirtualCamera) {
+				Globals.image=image;
+			}else 
+				Globals.image = Globals.cam.getImage();
 			
-			Globals.image = Globals.cam.getImage();
 			menuController.getCbCamera().getItems().add(camera);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				
+			Globals.mainController.setImage(Globals.image);
+
+			TreeNode rootNode=new TreeNode(cbAdapter.getSelectionModel().getSelectedItem().toString(),Globals.image);
+			Globals.tree=new ArvasisTree(rootNode);
+			Globals.mainController.mainPane.setRight(Globals.tree);
 	}
 	
 	@Override
