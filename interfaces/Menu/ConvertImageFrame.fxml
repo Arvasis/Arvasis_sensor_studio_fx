@@ -9,7 +9,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConvertImageController">
    <children>
-      <Label textFill="RED">
+      <Label fx:id="lblInfo" textFill="RED">
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
@@ -17,7 +17,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton mnemonicParsing="false" text="BufferedImage">
+      <RadioButton fx:id="rbBufferedImage" mnemonicParsing="false" text="BufferedImage">
          <VBox.margin>
             <Insets left="20.0" top="20.0" />
          </VBox.margin>
@@ -25,19 +25,19 @@
             <ToggleGroup fx:id="imageType" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton mnemonicParsing="false" text="Integer[][] Image" toggleGroup="$imageType">
+      <RadioButton fx:id="rbIntegerImage" mnemonicParsing="false" text="Integer[][] Image" toggleGroup="$imageType">
          <VBox.margin>
             <Insets left="20.0" top="10.0" />
          </VBox.margin>
       </RadioButton>
-      <RadioButton mnemonicParsing="false" text="Boolean[][] Image" toggleGroup="$imageType">
+      <RadioButton fx:id="rbBooleanImage" mnemonicParsing="false" text="Boolean[][] Image" toggleGroup="$imageType">
          <VBox.margin>
             <Insets left="20.0" top="10.0" />
          </VBox.margin>
       </RadioButton>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnvConvert" mnemonicParsing="false" prefWidth="100.0" text="Convert" />
+            <Button fx:id="btnConvert" mnemonicParsing="false" onAction="#convert" prefWidth="100.0" text="Convert" />
             <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancel" />
          </children>
       </HBox>

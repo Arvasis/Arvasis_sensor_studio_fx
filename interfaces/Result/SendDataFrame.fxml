@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
@@ -15,7 +14,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <TextField>
+            <TextField fx:id="txtIP">
                <HBox.margin>
                   <Insets left="5.0" right="20.0" />
                </HBox.margin>
@@ -25,7 +24,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField layoutX="23.0" layoutY="10.0" prefWidth="150.0" />
+            <TextField fx:id="txtPort" layoutX="23.0" layoutY="10.0" prefWidth="150.0" />
          </children>
          <VBox.margin>
             <Insets top="20.0" />
@@ -38,13 +37,13 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <TextField />
+            <TextField fx:id="txtMessage" />
          </children>
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="60.0" prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Send" />
-            <Button mnemonicParsing="false" prefWidth="100.0" text="Cancel">
+            <Button fx:id="btnSend" mnemonicParsing="false" onAction="#send" prefWidth="100.0" text="Send" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancel">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

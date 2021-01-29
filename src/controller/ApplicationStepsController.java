@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import controller.identification.FiltersFrameController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +13,15 @@ import javafx.stage.Stage;
 public class ApplicationStepsController {
 	//private AdapterController adapterController;
 	private MenuController menuController;
+	private IdentificationController identificationController;
 	
 	public void setMenuController(MenuController menuController) {
 		this.menuController=menuController;
 	}
 	
+	public void setIdentificationController(IdentificationController identificationController) {
+		this.identificationController=identificationController;
+	}
 	@FXML
 	public void openConnectToCamera() {
 		try {
@@ -87,10 +92,16 @@ public class ApplicationStepsController {
 	@FXML
 	public void openIdentification() {
 		try {
-			Parent identification=FXMLLoader.load(getClass().getResource("/ImageProcessing/Identification&LocateFrame.fxml"));
+			//Parent identification=FXMLLoader.load(getClass().getResource("/ImageProcessing/Identification&LocateFrame.fxml"));
+			FXMLLoader loader=new FXMLLoader(getClass().getResource("/ImageProcessing/Identification&LocateFrame.fxml"));
+			Parent identificationFrame=loader.load();
+			setIdentificationController(loader.getController());
+		
+			
+			
 			Stage stage=new Stage();
 			stage.setTitle("Identification & Locate");
-			stage.setScene(new Scene(identification));
+			stage.setScene(new Scene(identificationFrame));
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

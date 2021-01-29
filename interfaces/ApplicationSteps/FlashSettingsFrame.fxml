@@ -19,7 +19,7 @@
       <Label text="Color:" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <ComboBox fx:id="cbLedID" prefWidth="150.0" GridPane.columnIndex="1" />
       <ColorPicker fx:id="cpColor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" onAction="#send" prefWidth="100.0" text="Send" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-      <Button mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="btnSend" mnemonicParsing="false" onAction="#send" prefWidth="100.0" text="Send" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    </children>
 </GridPane>

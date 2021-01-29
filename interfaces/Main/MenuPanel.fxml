@@ -55,7 +55,7 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button contentDisplay="TOP" maxHeight="50.0" minHeight="50.0" mnemonicParsing="false" onAction="#convertImage" prefHeight="50.0" prefWidth="100.0" text="Convert Image">
+      <Button fx:id="btnConvertImage" contentDisplay="TOP" maxHeight="50.0" minHeight="50.0" mnemonicParsing="false" onAction="#convertImage" prefHeight="50.0" prefWidth="100.0" text="Convert Image">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>

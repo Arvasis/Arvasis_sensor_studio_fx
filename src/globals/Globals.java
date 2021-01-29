@@ -31,6 +31,8 @@ import arvasis.script.ArvasisJavaScriptEngine;
 import arvasis.tool.Label;
 import controller.MainController;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 
 public class Globals {
@@ -55,6 +57,8 @@ public class Globals {
 	
 	public static ArvasisJavaScriptEngine engine = new ArvasisJavaScriptEngine();
 
+	// public static boolean[][] mapParameter;
+	 public static boolean[][] trainResultParameter;
 
 	public static Object image;
 	public static ImageType imageType=ImageType.BufferedImage;
@@ -142,6 +146,16 @@ public class Globals {
 			MenuPanel.data[i][0]= o[i];
 			MenuPanel.cbTakePhoto.setData(MenuPanel.data, MenuPanel.columnNames);*/
 		}
+	
+	public static void setAlertInformation(String content) {
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information Dialog");
+		alert.setHeaderText("Look, an Information Dialog");
+		alert.setContentText(content);
+		alert.showAndWait();
+
+	}
 		
 	
 }
