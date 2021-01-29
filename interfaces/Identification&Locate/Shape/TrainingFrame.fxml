@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane  fx:controller = "controller.identification.ShapeClassificationController" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="485.0" minWidth="10.0" prefWidth="485.0" />
@@ -29,8 +29,8 @@
       </Label>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
-            <TextField editable="false" prefHeight="32.0" prefWidth="250.0" />
-            <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0">
+            <TextField fx:id="txtTrainCSVFile" editable="false" prefHeight="32.0" prefWidth="250.0" />
+            <Button fx:id="btnTrainSelectCSV" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,7 +41,7 @@
             </Button>
          </children>
       </HBox>
-      <TextField maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" prefWidth="150.0" text="Train" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+      <TextField fx:id="txtObjectDefinition" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+      <Button fx:id="btnTrain" mnemonicParsing="false" onAction="#train" prefWidth="150.0" text="Train" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
    </children>
 </GridPane>

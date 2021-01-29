@@ -5,10 +5,12 @@ import java.lang.reflect.Method;
 
 import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.grid.GridView;
+import controller.identification.FiltersFrameController;
 import globals.Globals;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -27,8 +29,11 @@ public abstract class FiltersFrame {
 	private Stage stage;
 	public Method selectedMethod;
 	public String processString;
+
 	public FiltersFrame(String title) {
 		try {
+			
+			
 			grd = FXMLLoader.load(getClass().getResource("/Main/FiltersFrame.fxml"));
 			VBox box = (VBox) grd.getChildren().get(0);
 			contentPane = (Pane) box.getChildren().get(0);
@@ -90,6 +95,9 @@ public abstract class FiltersFrame {
 
 	public void setContentPane(GridPane contentPane) {
 		this.contentPane.getChildren().add(contentPane);
+	}
+	public void setContentPane(Parent content) {
+		this.contentPane.getChildren().add(content);
 	}
 
 	public Button getBtnApply() {

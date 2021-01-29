@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import arvasis.camera.Camera;
+import arvasis.drawing.GraphicsIO;
+import arvasis.tool.RadioButton;
 import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -40,16 +42,16 @@ public class MenuController implements Initializable {
 	@FXML
 	public void newJob() {
 
-		Main main=new Main();
+		Main main = new Main();
 		main.start(new Stage());
 	}
 
 	@FXML
 	public void takePhoto() {
-		
+
 		Camera camera = (Camera) cbCamera.getSelectionModel().getSelectedItem();
 		try {
-			
+
 			BufferedImage image = camera.getImage();
 			Globals.mainController.setImage(image);
 		} catch (Exception e) {
@@ -71,9 +73,9 @@ public class MenuController implements Initializable {
 	@FXML
 	public void clearHistory() {
 
-		//TODO Tree Clear fonksiyonu eklenecek
-		
-		Globals.jsCode="";
+		// TODO Tree Clear fonksiyonu eklenecek
+
+		Globals.jsCode = "";
 		Globals.mainController.setImage(Globals.image);
 	}
 
@@ -133,11 +135,10 @@ public class MenuController implements Initializable {
 
 	public void setCbCamera(ComboBox<Object> cbCamera) {
 		this.cbCamera = cbCamera;
-		cbLang.setItems(FXCollections.observableArrayList("EN","TR"));
-		lang=cbLang.getItems().get(0);
+		cbLang.setItems(FXCollections.observableArrayList("EN", "TR"));
+		lang = cbLang.getItems().get(0);
 		Globals.setLanguage(lang);
-		
-	
+
 	}
-	
+
 }
