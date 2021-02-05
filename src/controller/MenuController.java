@@ -6,8 +6,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import arvasis.camera.ArvasisInspectClient;
 import arvasis.camera.Camera;
+import arvasis.camera.VirtualCamera;
 import arvasis.drawing.GraphicsIO;
+import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.RadioButton;
 import globals.Globals;
 import javafx.collections.FXCollections;
@@ -29,7 +32,7 @@ import javafx.stage.Stage;
 public class MenuController implements Initializable {
 
 	@FXML
-	public Button btnTakeButton;
+	public Button btnTakePhoto;
 	@FXML
 	public ComboBox<Object> cbCamera;
 
@@ -50,14 +53,24 @@ public class MenuController implements Initializable {
 	public void takePhoto() {
 
 		Camera camera = (Camera) cbCamera.getSelectionModel().getSelectedItem();
-		try {
 
-			BufferedImage image = camera.getImage();
-			Globals.mainController.setImage(image);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (camera instanceof VirtualCamera) {
+			try {
+				BufferedImage image = (BufferedImage) Globals.image;
+				Globals.mainController.setImage(image);
+				Globals.tree.addChild(new TreeNode(btnTakePhoto.getText(), image));
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			BufferedImage image = (BufferedImage) Globals.applyAllFilters(Globals.cameraPreview,
+					Globals.tree.getProcessString(Globals.tree.getRootNode()));
+			Globals.tree.addChild(new TreeNode(btnTakePhoto.getText(), image));
+
 		}
+
 		/*
 		 * BufferedImage image=Globals.applyAllFilters(cameraPreview.getImage(),
 		 * getProcessStringFromTree());
