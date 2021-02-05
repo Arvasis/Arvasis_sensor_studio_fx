@@ -3,6 +3,7 @@ package controller;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import com.sun.javafx.iio.ImageStorage.ImageType;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import arvasis.drawing.GraphicsIO;
@@ -70,7 +71,7 @@ public class IdentificationController {
 
 						if (filterType.equals(FilterType.FixedColorExtraction)) {
 
-							if (Globals.mainController.getImage() != null) {
+							if (Globals.tree.getImageForProcess() != null) {
 								if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 										.equals("0x00000000")
 										&& !filtersFrameController.cpUpperThresholdRGB.getValue().toString()
@@ -91,16 +92,17 @@ public class IdentificationController {
 											(int) filtersFrameController.cpUpperThresholdRGB.getValue().getBlue());
 
 									boolean[][] image = GraphicsIO.applyThresholdForMap(
-											(BufferedImage) Globals.mainController.getImage(), lowerRGB, upperRGB);
+											(BufferedImage) Globals.tree.getImageForProcess(), lowerRGB, upperRGB);
 									boolean[][] b = GraphicsIO.not(image);
 									
-									String script = "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
+									processString = "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
 											+ lowerRGB + ", " + upperRGB + ");"
 											+ "image =  Packages.arvasis.drawing.GraphicsIO.not(image)";
 
-									Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB,image,script));
-									
-									//Globals.runScript(content, (String) Globals.processString);
+									//Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB,image,processString));
+									Globals.imageType = Globals.ImageType.Boolean;
+									Globals.mainController.setImage(b);
+									//Globals.runprocessString(content, (String) Globals.processString);
 									// Globals.engine.getVar("image");
 
 								} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
@@ -128,18 +130,19 @@ public class IdentificationController {
 
 									boolean inverse = filtersFrameController.cbInverse.isSelected();
 									int[][] intImage = GraphicsIO
-											.convertToIntegerArray((BufferedImage) Globals.mainController.getImage());
+											.convertToIntegerArray((BufferedImage) Globals.tree.getImageForProcess());
 									boolean[][] image = GraphicsIO.applyThresholdForMap(intImage, lowerRGB, upperRGB,
 											backgroundColor, inverse);
 									boolean[][] b = GraphicsIO.not(image);
 
-									String script = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
+									processString = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 											+ "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
 											+ lowerRGB + ", " + upperRGB + "," + backgroundColor + "," + inverse + ");"
 											+ "image =  Packages.arvasis.drawing.GraphicsIO.not(image)";
 									
-									Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB+ "," + backgroundColor + "," + inverse,image,script));
-									
+									//Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB+ "," + backgroundColor + "," + inverse,image,processString));
+									Globals.imageType = Globals.ImageType.Boolean;
+									Globals.mainController.setImage(b);
 
 								} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 										.equals("0x00000000")
@@ -163,19 +166,20 @@ public class IdentificationController {
 									boolean inverse = filtersFrameController.cbInverse.isSelected();
 
 									int[][] intImage = GraphicsIO
-											.convertToIntegerArray((BufferedImage) Globals.mainController.getImage());
+											.convertToIntegerArray((BufferedImage) Globals.tree.getImageForProcess());
 									boolean[][] image = GraphicsIO.applyThresholdForMap(intImage,
 											filtersFrameController.pixel, lowerRGB, upperRGB, rgbDiff, inverse);
 									boolean[][] b = GraphicsIO.not(image);
 
-									String script  = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
+									processString  = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 											+ "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
 											+ filtersFrameController.pixel + "," + lowerRGB + ", " + upperRGB + ","
 											+ rgbDiff + "," + inverse + ");"
 											+ "image =  Packages.arvasis.drawing.GraphicsIO.not(image)";
 									
-									Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB+ "," + rgbDiff + "," + inverse,image,script));
-									
+									///Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB+ "," + rgbDiff + "," + inverse,image,processString));
+									Globals.imageType = Globals.ImageType.Boolean;
+									Globals.mainController.setImage(b);
 								} else {
 
 									Globals.setAlertInformation(
@@ -184,7 +188,7 @@ public class IdentificationController {
 								}
 
 							}
-							if (Globals.mainController.getImage() == null) {
+							if (Globals.tree.getImageForProcess() == null) {
 
 								Globals.setAlertInformation("Görüntü Yüklenmedi");
 
@@ -192,8 +196,8 @@ public class IdentificationController {
 
 						}
 						if (filterType.equals(FilterType.ThresholdForMap)) {
-							if (Globals.mainController.getImage() != null) {
-								boolean val = Globals.getImageType(Globals.mainController.getImage(),
+							if (Globals.tree.getImageForProcess() != null) {
+								boolean val = Globals.getImageType(Globals.tree.getImageForProcess(),
 										Globals.ImageType.BufferedImage.toString(), null);
 								if (val == true) {
 									if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
@@ -215,12 +219,13 @@ public class IdentificationController {
 												(int) filtersFrameController.cpUpperThresholdRGB.getValue().getBlue());
 
 										boolean[][] image = GraphicsIO.applyThresholdForMap(
-												(BufferedImage) Globals.mainController.getImage(), lowerRGB, upperRGB);
+												(BufferedImage) Globals.tree.getImageForProcess(), lowerRGB, upperRGB);
 
-										String script = "map = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
+										processString = "map = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
 												+ lowerRGB + "," + upperRGB + ")";
-										Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+lowerRGB+","+upperRGB,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+lowerRGB+","+upperRGB,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 
 									} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 											.equals("0x00000000")
@@ -233,16 +238,17 @@ public class IdentificationController {
 											&& filtersFrameController.upperThreshold.length != 0) {
 
 										boolean[][] image = GraphicsIO.applyThresholdForMap(
-												(BufferedImage) Globals.mainController.getImage(),
+												(BufferedImage) Globals.tree.getImageForProcess(),
 												filtersFrameController.lowerThreshold,
 												filtersFrameController.upperThreshold);
 
-										String script = "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
+										processString = "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
 												+ filtersFrameController.lowerThreshold + ","
 												+ filtersFrameController.upperThreshold + ")";
 										
-										Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.lowerThreshold+","+filtersFrameController.upperThreshold,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.lowerThreshold+","+filtersFrameController.upperThreshold,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 									}
 
 									else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
@@ -272,16 +278,17 @@ public class IdentificationController {
 										boolean inverse = filtersFrameController.cbInverse.isSelected();
 
 										int[][] i = GraphicsIO.convertToIntegerArray(
-												(BufferedImage) Globals.mainController.getImage());
+												(BufferedImage) Globals.tree.getImageForProcess());
 										boolean[][] image = GraphicsIO.applyThresholdForMap(i, lowerRGB, upperRGB,
 												backgroundColor, inverse);
 
-										String script= "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
+										processString= "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 												+ "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
 												+ lowerRGB + "," + upperRGB + "," + backgroundColor + "," + inverse
 												+ ")";
-										Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+lowerRGB+","+upperRGB+ "," + backgroundColor + "," + inverse,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+lowerRGB+","+upperRGB+ "," + backgroundColor + "," + inverse,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 
 									} else if (filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 											.equals("0x00000000")
@@ -302,18 +309,19 @@ public class IdentificationController {
 										boolean inverse = filtersFrameController.cbInverse.isSelected();
 
 										int[][] i = GraphicsIO.convertToIntegerArray(
-												(BufferedImage) Globals.mainController.getImage());
+												(BufferedImage) Globals.tree.getImageForProcess());
 										boolean[][] image = GraphicsIO.applyThresholdForMap(i,
 												filtersFrameController.lowerThreshold,
 												filtersFrameController.upperThreshold, backgroundColor, inverse);
 										
-										String script = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
+										processString = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 												+ "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
 												+ filtersFrameController.lowerThreshold + ","
 												+ filtersFrameController.upperThreshold + "," + backgroundColor + ","
 												+ inverse + ")";
-										Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.lowerThreshold+","+filtersFrameController.upperThreshold+ "," + backgroundColor + "," + inverse,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.lowerThreshold+","+filtersFrameController.upperThreshold+ "," + backgroundColor + "," + inverse,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 
 									} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 											.equals("0x00000000")
@@ -339,17 +347,18 @@ public class IdentificationController {
 										boolean inverse = filtersFrameController.cbInverse.isSelected();
 
 										int[][] i = GraphicsIO.convertToIntegerArray(
-												(BufferedImage) Globals.mainController.getImage());
+												(BufferedImage) Globals.tree.getImageForProcess());
 										boolean[][] image = GraphicsIO.applyThresholdForMap(i,
 												filtersFrameController.pixel, lowerRGB, upperRGB, rgbDiff, inverse);
 										
-										String script = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
+										processString = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 												+ "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
 												+ filtersFrameController.pixel + "," + lowerRGB + "," + upperRGB + ","
 												+ rgbDiff + "," + inverse + ")";
 										
-										Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.pixel+","+lowerRGB+ "," + upperRGB + "," + rgbDiff + "," + inverse,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.pixel+","+lowerRGB+ "," + upperRGB + "," + rgbDiff + "," + inverse,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 
 									} else {
 
@@ -365,9 +374,9 @@ public class IdentificationController {
 						}
 
 						if (filterType.equals(FilterType.BlueThresholdForMap)) {
-							if (Globals.mainController.getImage() != null) {
+							if (Globals.tree.getImageForProcess() != null) {
 
-								boolean val = Globals.getImageType(Globals.mainController.getImage(),
+								boolean val = Globals.getImageType(Globals.tree.getImageForProcess(),
 										Globals.ImageType.Integer.toString(), null);
 
 								if (val == true) {
@@ -400,14 +409,15 @@ public class IdentificationController {
 												(int) filtersFrameController.cpBackgroundColor.getValue().getBlue());
 										boolean isInverse = filtersFrameController.cbInverse.isSelected();
 
-										boolean[][] image = GraphicsIO.applyBlueThresholdForMap((int[][]) Globals.mainController.getImage(),
+										boolean[][] image = GraphicsIO.applyBlueThresholdForMap((int[][]) Globals.tree.getImageForProcess(),
 												lowerBound, upperBound, brightnessThreshold, diffThreshold,
 												backgroundColor, isInverse);
-										String script = "map=Packages.arvasis.drawing.GraphicsIO.applyBlueThresholdForMap(image,"+lowerBound+","+ upperBound+","+brightnessThreshold+","+ diffThreshold+"," +backgroundColor+","+ isInverse+")";
+										processString = "map=Packages.arvasis.drawing.GraphicsIO.applyBlueThresholdForMap(image,"+lowerBound+","+ upperBound+","+brightnessThreshold+","+ diffThreshold+"," +backgroundColor+","+ isInverse+")";
 										
-										Globals.tree.addChild(new TreeNode("Blue Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold + "," + backgroundColor+","+isInverse,image,script));
+										//Globals.tree.addChild(new TreeNode("Blue Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold + "," + backgroundColor+","+isInverse,image,processString));
 										
-										
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 
 									} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 											.equals("0x00000000")
@@ -433,12 +443,13 @@ public class IdentificationController {
 										int diffThreshold = (int) filtersFrameController.spRGBDiff.getValue();
 										
 
-										boolean[][] image = GraphicsIO.applyBlueThresholdForMap((int[][]) Globals.mainController.getImage(),
+										boolean[][] image = GraphicsIO.applyBlueThresholdForMap((int[][]) Globals.tree.getImageForProcess(),
 												lowerBound, upperBound, brightnessThreshold, diffThreshold);
-										String script = "map=Packages.arvasis.drawing.GraphicsIO.applyBlueThresholdForMap(image, "+lowerBound+","+upperBound+","+brightnessThreshold+","+diffThreshold+")";
+										processString = "map=Packages.arvasis.drawing.GraphicsIO.applyBlueThresholdForMap(image, "+lowerBound+","+upperBound+","+brightnessThreshold+","+diffThreshold+")";
 
-										Globals.tree.addChild(new TreeNode("Blue Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold,image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Blue Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 										
 									} else {
 										Globals.setAlertInformation("Uygun Parametreler:\n"
@@ -453,9 +464,9 @@ public class IdentificationController {
 						}
 						if (filterType.equals(FilterType.GreenThresholdForMap)) {
 
-							if (Globals.mainController.getImage() != null) {
+							if (Globals.tree.getImageForProcess() != null) {
 
-								boolean val = Globals.getImageType(Globals.mainController.getImage(), Globals.ImageType.Integer.toString(),
+								boolean val = Globals.getImageType(Globals.tree.getImageForProcess(), Globals.ImageType.Integer.toString(),
 										null);
 
 								if (val == true) {
@@ -491,11 +502,13 @@ public class IdentificationController {
 											(int) filtersFrameController.cpBackgroundColor.getValue().getBlue());
 									boolean isInverse = filtersFrameController.cbInverse.isSelected();
 
-									boolean[][] image = GraphicsIO.applyGreenThresholdForMap((int[][])Globals.mainController.getImage(), lowerBound, upperBound,
+									boolean[][] image = GraphicsIO.applyGreenThresholdForMap((int[][])Globals.tree.getImageForProcess(), lowerBound, upperBound,
 											brightnessThreshold, diffThreshold, background, isInverse);
-									String script = " map = Packages.arvasis.drawing.GraphicsIO.applyGreenThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+isInverse+")";
+									processString = " map = Packages.arvasis.drawing.GraphicsIO.applyGreenThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+isInverse+")";
 							
-									Globals.tree.addChild(new TreeNode("Green Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold + "," + background+","+isInverse,image,script));
+									//Globals.tree.addChild(new TreeNode("Green Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold + "," + background+","+isInverse,image,processString));
+									Globals.imageType = Globals.ImageType.Boolean;
+									Globals.mainController.setImage(image);
 									
 								} else if (!filtersFrameController.cpLowerThresholdRGB.getValue().toString()
 										.equals("0x00000000")
@@ -520,12 +533,13 @@ public class IdentificationController {
 											(int) filtersFrameController.cpBrigtness.getValue().getBlue());
 									int diffThreshold = (int) filtersFrameController.spRGBDiff.getValue();
 									
-									boolean[][] image = GraphicsIO.applyGreenThresholdForMap((int[][]) Globals.mainController.getImage(), lowerBound, upperBound,
+									boolean[][] image = GraphicsIO.applyGreenThresholdForMap((int[][]) Globals.tree.getImageForProcess(), lowerBound, upperBound,
 											brightnessThreshold, diffThreshold);
-								String script = " map = GraphicsIO.applyGreenThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+")";
+								processString = " map = GraphicsIO.applyGreenThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+")";
 									
-									Globals.tree.addChild(new TreeNode("Green Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold,image,script));
-									
+									//Globals.tree.addChild(new TreeNode("Green Threshold For Map: Image,"+lowerBound+","+upperBound+ "," + brightnessThreshold + "," + diffThreshold,image,processString));
+								Globals.imageType = Globals.ImageType.Boolean;
+								Globals.mainController.setImage(image);
 								} else {
 
 									Globals.setAlertInformation("Uygun Parametreler:\n"
@@ -542,9 +556,9 @@ public class IdentificationController {
 							
 						}
 						if (filterType.equals(FilterType.RedThresholdForMap)) {
-							if (Globals.mainController.getImage() != null) {
+							if (Globals.tree.getImageForProcess() != null) {
 
-								boolean val = Globals.getImageType(Globals.mainController.getImage(), Globals.ImageType.Integer.toString(),
+								boolean val = Globals.getImageType(Globals.tree.getImageForProcess(), Globals.ImageType.Integer.toString(),
 										null);
 
 								if (val == true) {
@@ -574,12 +588,13 @@ public class IdentificationController {
 												(int) filtersFrameController.cpRedUpper.getValue().getGreen(),
 												(int) filtersFrameController.cpRedUpper.getValue().getBlue());
 
-										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.mainController.getImage(), redLowerBound,
+										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.tree.getImageForProcess(), redLowerBound,
 												redUpperBound);
-										String script = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+")";
+										processString = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+")";
 										
-										Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+image,script));
-										
+										//Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 										
 									} else if (!filtersFrameController.cpRedLower.getValue().toString()
 											.equals("0x00000000")
@@ -609,12 +624,14 @@ public class IdentificationController {
 												(int) filtersFrameController.cpBrigtness.getValue().getGreen(),
 												(int) filtersFrameController.cpBrigtness.getValue().getBlue());
 
-										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.mainController.getImage(), redLowerBound,
+										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.tree.getImageForProcess(), redLowerBound,
 												redUpperBound, brightnessThreshold);
-										String script = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+","+brightnessThreshold+")";
+										processString = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+","+brightnessThreshold+")";
 										
-										Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+","+brightnessThreshold,image,script));
-
+										//Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+","+brightnessThreshold,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
+										
 									} else if (!filtersFrameController.cpRedLower.getValue().toString()
 											.equals("0x00000000")
 											&& !filtersFrameController.cpRedUpper.getValue().toString()
@@ -644,12 +661,13 @@ public class IdentificationController {
 												(int) filtersFrameController.cpBrigtness.getValue().getBlue());
 										int redDiffThreshold = filtersFrameController.spRedDiff.getValue();
 
-										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.mainController.getImage(), redLowerBound,
+										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.tree.getImageForProcess(), redLowerBound,
 												redUpperBound, brightnessThreshold, redDiffThreshold);
-										String script = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+","+brightnessThreshold+","+redDiffThreshold+")";
+										processString = " image = Packages.arvasis.drawing.GraphicsIO.applyRedThresholdForMap(image,"+ redLowerBound+","+ redUpperBound+","+brightnessThreshold+","+redDiffThreshold+")";
 										
-										Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+","+brightnessThreshold+","+redDiffThreshold,image,script));
-
+										//Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+redLowerBound+","+redUpperBound+","+brightnessThreshold+","+redDiffThreshold,image,processString));
+										Globals.imageType = Globals.ImageType.Boolean;
+										Globals.mainController.setImage(image);
 		
 									} else if (filtersFrameController.cpRedLower.getValue().toString()
 											.equals("0x00000000")
@@ -686,11 +704,12 @@ public class IdentificationController {
 												(int) filtersFrameController.cpBackgroundColor.getValue().getGreen(),
 												(int) filtersFrameController.cpBackgroundColor.getValue().getBlue());
 										
-										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.mainController.getImage(), lowerBound,
+										boolean[][] image = GraphicsIO.applyRedThresholdForMap((int[][]) Globals.tree.getImageForProcess(), lowerBound,
 												upperBound, brightnessThreshold, diffThreshold, background, isInverse);
-										String  script= " image = GraphicsIO.applyRedThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+ isInverse+")";
-										Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+lowerBound+","+upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+ isInverse,image,script));
-
+										  processString= " image = GraphicsIO.applyRedThresholdForMap(image, "+lowerBound+","+ upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+ isInverse+")";
+										//Globals.tree.addChild(new TreeNode("Red Threshold For Map: Image,"+lowerBound+","+upperBound+","+brightnessThreshold+","+diffThreshold+","+ background+","+ isInverse,image,processString));
+										  Globals.imageType = Globals.ImageType.Boolean;
+										  Globals.mainController.setImage(image);
 									} else {
 										Globals.setAlertInformation("Uygun Parametreler:\n"
 												+ "{Red Lower Bound - Red Upper Bound}\n"
@@ -711,7 +730,7 @@ public class IdentificationController {
 		};
 		// GridPane gridPane = (GridPane) content;
 		frame.setContentPane(content);
-		frame.getBtnApply().setTranslateY(((GridPane) content).getRowConstraints().size() * 30);
+		frame.getBtnApply().setTranslateY(((GridPane) content).getRowCount() * 30);
 
 		/*
 		 * GridPane root; try { root =

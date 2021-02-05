@@ -6,8 +6,7 @@ import java.util.function.ToDoubleBiFunction;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import arvasis.camera.adapters.CameraCommunication;
-
-
+import arvasis.sensor.studio.tree.TreeNode;
 import globals.Globals;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,12 +15,17 @@ import javafx.stage.Stage;
 
 public class SendDataController {
 
-	@FXML private TextField txtIP;
-	@FXML private TextField txtPort;
-	@FXML private TextField txtMessage;
-	@FXML private Button btnSend;
-	@FXML private Button btnCancel;
-	
+	@FXML
+	private TextField txtIP;
+	@FXML
+	private TextField txtPort;
+	@FXML
+	private TextField txtMessage;
+	@FXML
+	private Button btnSend;
+	@FXML
+	private Button btnCancel;
+
 	@FXML
 	public void send() {
 		if (!txtIP.getText().equals("") || !txtPort.getText().equals("")
@@ -37,26 +41,21 @@ public class SendDataController {
 			Globals.sendData(txtIP.getText(), Integer.parseInt(txtPort.getText()), byteArray);
 
 			
-			String processString = "com.addHeader(2," + System.currentTimeMillis()+ ");\r\n" 
-					+ "com.addData(" + txtMessage.getText() + ");\r\n"
-					+ "Packages.arvasis.cameraCommunication.SendDataFrame.sendData(\"" + txtIP.getText()
-					+ "\"," + Integer.parseInt(txtPort.getText()) + " , byteArray);"
+			String processString = "com.addHeader(0," + System.currentTimeMillis()+ ");" 
+					+ "com.addData(" + txtMessage.getText() + ");"
+					+ "Packages.arvasis.globals.Globals.sendData(" + txtIP.getText()
+					+ "," + Integer.parseInt(txtPort.getText()) + " , byteArray);"
 							+ "a=typeof(byteArray);";
-			System.out.println("typeof a:"+Globals.engine.getVar("byteArray"));
-			//TODO tree ye eklenecek
-			/* TODO if (Globals.tree.getSelectedTreeNode() != null) { DefaultMutableTreeNode node
-			 * = Globals.tree.updateSelectedNode("Send Data", processString);
-			 * Globals.tree.addChild((DefaultMutableTreeNode) node.getParent(), new
-			 * TreeNode()); } else Globals.tree.addChild(new TreeNode("Send Data",
-			 * processString));
-			 */
+			//System.out.println("typeof a:"+Globals.engine.getVar("byteArray"));
+			Globals.tree.addChild(new TreeNode("Send Data", processString));
+			 
 			
 		}
 	}
-	
+
 	@FXML
 	public void cancel() {
-		((Stage)btnCancel.getScene().getWindow()).close();
+		((Stage) btnCancel.getScene().getWindow()).close();
 	}
-	
+
 }
