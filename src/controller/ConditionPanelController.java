@@ -34,4 +34,15 @@ public class ConditionPanelController implements Initializable {
 	public String getValue() {
 		return txtValue.getText();
 	}
+	public int getSelectedFunctionIndex() {
+		return cbFunction.getSelectionModel().getSelectedIndex();
+	}
+	public boolean isFilled() {
+		
+		if (getSelectedFunctionIndex() != -1 && !txtValue.getText().equals("")
+				&& getSelectedCondition() != null) {
+			return true;
+		}
+		return false;
+	}
 }

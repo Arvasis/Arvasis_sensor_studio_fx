@@ -3,6 +3,8 @@ package interfacebuilder;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import javax.swing.border.TitledBorder;
+
 import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.grid.GridView;
 import controller.identification.FiltersFrameController;
@@ -29,10 +31,10 @@ public abstract class FiltersFrame {
 	private Stage stage;
 	public Method selectedMethod;
 	public String processString;
-
+	private String title;
 	public FiltersFrame(String title) {
 		try {
-			
+			this.title=title;
 			
 			grd = FXMLLoader.load(getClass().getResource("/Main/FiltersFrame.fxml"));
 			VBox box = (VBox) grd.getChildren().get(0);
@@ -70,7 +72,16 @@ public abstract class FiltersFrame {
 	}
 	public void addFilter(Object image) {
 		//TODO add node with image to tree
-		Globals.tree.addChild(new TreeNode(selectedMethod.getName(),image,processString));
+		//String[] titles =title.split(" ");
+		String processName = title+": ";
+	/*	for (int i = 0; i < titles.length - 1; i++) {
+			processName += titles[i] + " ";
+		}*/
+		//String processString = (String) Globals.processString;
+		String parameters = processString.substring(processString.indexOf("(") + 1, processString.indexOf(")"));
+		processName += " " + parameters;
+		System.out.println(processName);
+		Globals.tree.addChild(new TreeNode(processName,image,processString));
 		((Stage)grd.getScene().getWindow()).close();
 	}
 	public void deleteFilter() {

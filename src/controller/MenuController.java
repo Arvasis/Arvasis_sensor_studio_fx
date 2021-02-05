@@ -12,6 +12,7 @@ import arvasis.camera.VirtualCamera;
 import arvasis.drawing.GraphicsIO;
 import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.RadioButton;
+import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -90,6 +91,7 @@ public class MenuController implements Initializable {
 
 		Globals.jsCode = "";
 		Globals.mainController.setImage(Globals.image);
+		Globals.tree.getRoot().getChildren().removeAll(Globals.tree.getRoot().getChildren());
 	}
 
 	@FXML

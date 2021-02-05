@@ -711,7 +711,7 @@ public class IdentificationController {
 		};
 		// GridPane gridPane = (GridPane) content;
 		frame.setContentPane(content);
-		frame.getBtnApply().setTranslateY(((GridPane) content).getRowCount() * 30);
+		frame.getBtnApply().setTranslateY(((GridPane) content).getRowConstraints().size() * 30);
 
 		/*
 		 * GridPane root; try { root =
