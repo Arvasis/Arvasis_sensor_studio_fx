@@ -6,6 +6,7 @@ import java.io.IOException;
 import arvasis.drawing.GraphicsIO;
 import arvasis.drawing.objects.BoundaryCluster;
 import arvasis.drawing.objects.PixelLocation;
+import arvasis.sensor.studio.tree.TreeNode;
 import controller.analysis.ReadController;
 import controller.analysis.ReadController.ReadType;
 import globals.Globals;
@@ -90,18 +91,19 @@ public class AnalysisController {
 		calculatePerimeter((BufferedImage) img);
 		new Alert(AlertType.INFORMATION,"Perimeter: " + String.valueOf(objectPerimeter)).show();
 		String process="perimeter=Packages.controller.AnalysisController.calculatePerimeter(image);\r\n";
-		//TODO add node to tree
-
+		Globals.tree.addChild(new TreeNode("Calculate Perimeter: "+objectPerimeter,img,process));
 	}
 
 	@FXML
 	public void calculateArea() {
-		Object img = globals.Globals.mainController.getImage();
+		Object img = Globals.tree.getImageForProcess();
 		calculateArea((BufferedImage) img);
 		new Alert(AlertType.INFORMATION,"Area: " + String.valueOf(objectArea)).show();
 		String process="area=Packages.controller.AnalysisController.calculateArea(image);\r\n";
+		/*Globals.runScript(process);
+		new Alert(AlertType.INFORMATION,"Area: " + String.valueOf(Globals.engine.getVar("area"))).show();*/
+		Globals.tree.addChild(new TreeNode("Calculate Area: "+objectArea,img,process));
 		
-		//TODO add node to tree
 	}
 	public static double calculateArea(BufferedImage image) {
 		BoundaryCluster[] c = GraphicsIO.detectBoundaries(image);
