@@ -262,8 +262,8 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	}
 
 	public void updateImages(Object image) {
-		BufferedImage buff = (BufferedImage) image;
-		DataVisualizer.showImage(buff);
+		//BufferedImage buff = (BufferedImage) image;
+		//DataVisualizer.showImage(buff);
 		Globals.engine.putVar("image", Globals.copyObject(image));
 		TreeItem<TreeNode> node = getSelectedNode();
 		TreeItem<TreeNode> nodeAfter = node.nextSibling();
