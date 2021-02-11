@@ -83,6 +83,7 @@ public class LoopController implements Initializable {
 		
 	//	Globals.tree.updateNode(treeNode, nodeName, image, processString);
 		TreeNode node = new TreeNode(nodeName, image, processString);
+		node.setCondition(true);
 		Globals.tree.addChild(node);
 		Globals.tree.addChild(new TreeNode(), true);//empyt node
 		

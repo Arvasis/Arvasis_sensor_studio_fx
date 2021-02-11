@@ -44,7 +44,7 @@
 	<classpathentry kind="lib" path="lib/tess4j/tess4j-4.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/tess4j/xmlgraphics-commons-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/tess4j/zxing.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_251">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
