@@ -54,6 +54,8 @@ public class ArvasisTree extends TreeView<TreeNode> {
 				 * if (nodeInfo.isEmpty()) { selectedNode = newValue; } else selectedNode =
 				 * null;
 				 */
+				System.out.println(nodeInfo);
+				System.out.println(nodeInfo.isEmpty());
 				if (nodeInfo.getImage() != null) {
 					Object image = nodeInfo.getImage();
 					BufferedImage img = null;
@@ -140,12 +142,10 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	}
 
 	public TreeItem<TreeNode> addChild(TreeNode child) {
-		
+
 		if (selectedNode!=null) {
 			if (selectedNode.getValue().isEmpty()) {
-				
-				System.out.println("is empty:"+selectedNode.getValue().isEmpty());
-			return updateSelectedNode(child);
+				return updateSelectedNode(child);
 			}
 		}	
 		return addChild(rootNode, child);
@@ -182,7 +182,15 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	public TreeItem<TreeNode> updateSelectedNode(TreeNode newNode) {
 		TreeItem<TreeNode> node = selectedNode;
 		TreeNode treeNode = selectedNode.getValue();
+		lastAddedNode=selectedNode;
+		System.out.println("condition:"+treeNode.isCondition());
+
 		updateNode(treeNode, newNode.getNodeName(), newNode.getImage(), newNode.getProcessString());
+		System.out.println("condition:"+newNode.isCondition());
+		if (!newNode.isCondition()) {
+			addChild(node.getParent(),new TreeNode());
+		}
+		
 		return node;
 	}
 	public TreeItem<TreeNode> updateSelectedNode(String nodeName, Object image, String processString) {
@@ -192,16 +200,20 @@ public class ArvasisTree extends TreeView<TreeNode> {
 		return node;
 	}
 	public void updateNode(TreeNode node, String nodeName, Object image, String processString) {
+		System.out.println();
+		System.out.println(node+" "+node.getNodeName()+" "+node.getImage()+" "+node.getProcessString()+" "+node.isEmpty());
 		node.setNodeName(nodeName);
 		node.setImage(image);
 		node.setProcessString(processString);
 		node.setEmpty(false);
-		if (getSelectedNode()!=null) {
+		if (getSelectedNode()!=null&&getSelectedNode().previousSibling()!=null) {
 			updateNextNodes(node);
 		}
-		
+		System.out.println(node.getNodeName()+" "+node.getImage()+" "+node.getProcessString()+" "+node.isEmpty());
+
 
 		selectedNode = null;
+		
 		refresh();
 	}
 	class TreePopup extends ContextMenu {
@@ -258,7 +270,10 @@ public class ArvasisTree extends TreeView<TreeNode> {
 
 	public void updateNextNodes(TreeNode treeNode) {
 		// BufferedImage image=(BufferedImage) ;
-		updateImages(treeNode.getImage());
+		if (treeNode.getImage()!=null) {
+					updateImages(treeNode.getImage());
+
+		}
 	}
 
 	public void updateImages(Object image) {

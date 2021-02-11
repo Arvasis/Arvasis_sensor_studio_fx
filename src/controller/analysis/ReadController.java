@@ -14,12 +14,15 @@ import java.io.PrintWriter;
 import arvasis.drawing.GraphicsIO;
 import arvasis.ocr.ArvasisOCR;
 import arvasis.script.ArvasisJavaScriptEngine;
+import arvasis.sensor.studio.tree.TreeNode;
 import globals.Globals;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 
 public class ReadController {
 
@@ -64,11 +67,15 @@ public class ReadController {
 		if (img != null) {
 			String result = "";
 			String process = "";
+			String nodeName="Read ";
 			if (type == ReadType.Barcode) {
 				process = "result =Packages.arvasis.drawing.GraphicsIO.readBarcode(image);";
+				nodeName+="Barcode: ";
 			} else {
 				process = "try {\r\n" + "result = Packages.arvasis.ocr.ArvasisOCR.doOCR(image);\r\n" + "} catch (e2) {\r\n"
 						+ "	e2.printStackTrace();\r\n" + "}";
+				nodeName+="Text: ";
+
 			}
 
 			if (rbUseRobot.isSelected()) {
@@ -81,18 +88,15 @@ public class ReadController {
 				} else
 					process += readFile("text.txt");
 			}
-			// Globals.runScript(img,"image",process);
 			
 			Globals.runScript(img, "image", process);
 			result = (String) Globals.engine.getVar("result");
 			txtArea.setVisible(true);
 			txtArea.setText(result);
 
-			// TODO add to tree
-			// Globals.tree.addChild(new TreeNode("Read Barcode:"+barcode,process));
+			 Globals.tree.addChild(new TreeNode(nodeName+result,process));
 		} else {
-			// TODO add to tree
-			// Globals.setDialogValidator(ReadBarcodeFrame.this, "Görüntü Yüklenmedi.");
+			new Alert(AlertType.ERROR,"Image couldn't find.").show();
 		}
 	}
 

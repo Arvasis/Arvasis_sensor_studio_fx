@@ -72,7 +72,6 @@ public abstract class FiltersFrame {
 		show(title);
 	}
 	public void addFilter(Object image) {
-		//TODO add node with image to tree
 		//String[] titles =title.split(" ");
 		String processName = title+": ";
 	/*	for (int i = 0; i < titles.length - 1; i++) {
