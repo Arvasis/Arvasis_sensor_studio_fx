@@ -49,6 +49,7 @@ public abstract class FiltersFrame {
 
 				@Override
 				public void handle(ActionEvent event) {
+					
 					addFilter(Globals.mainController.getImage());
 					
 				}

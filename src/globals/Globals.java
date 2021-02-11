@@ -1,40 +1,20 @@
 package globals;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.swing.Timer;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-
-import com.sun.jna.platform.win32.Winnetwk.RESOURCEDISPLAYTYPE;
-
 import arvasis.camera.Camera;
-import arvasis.drawing.objects.PixelLocation;
 import arvasis.io.net.SocketManager;
 import arvasis.script.ArvasisJavaScriptEngine;
 import arvasis.sensor.studio.tree.ArvasisTree;
-import arvasis.tool.Label;
 import controller.MainController;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 
 public class Globals {
 
@@ -65,6 +45,7 @@ public class Globals {
 
 	public static Object image;
 	public static ImageType imageType=ImageType.BufferedImage;
+	public static int forIndex=0; //Loop Controller
 	public enum ImageType {
 		BufferedImage, Integer, Boolean
 	}

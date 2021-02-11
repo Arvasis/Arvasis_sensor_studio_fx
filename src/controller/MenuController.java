@@ -6,8 +6,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import arvasis.camera.ArvasisInspectClient;
 import arvasis.camera.Camera;
+import arvasis.camera.VirtualCamera;
 import arvasis.drawing.GraphicsIO;
+import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.RadioButton;
 import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
@@ -23,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -30,7 +34,7 @@ import javafx.stage.Stage;
 public class MenuController implements Initializable {
 
 	@FXML
-	public Button btnTakeButton;
+	public Button btnTakePhoto;
 	@FXML
 	public ComboBox<Object> cbCamera;
 
@@ -39,6 +43,15 @@ public class MenuController implements Initializable {
 	private ComboBox<String> cbLang;
 	@FXML
 	public Button btnClose;
+
+	public CameraPreviewController cameraPreviewController;
+	public CameraPreviewController getCameraPreviewController() {
+		return cameraPreviewController;
+	}
+
+	public void setCameraPreviewController(CameraPreviewController cameraPreviewController) {
+		this.cameraPreviewController = cameraPreviewController;
+	}
 
 	@FXML
 	public void newJob() {
@@ -51,14 +64,24 @@ public class MenuController implements Initializable {
 	public void takePhoto() {
 
 		Camera camera = (Camera) cbCamera.getSelectionModel().getSelectedItem();
-		try {
 
-			BufferedImage image = camera.getImage();
-			Globals.mainController.setImage(image);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (camera instanceof VirtualCamera) {
+			try {
+				BufferedImage image = (BufferedImage) Globals.image;
+				Globals.mainController.setImage(image);
+				Globals.tree.addChild(new TreeNode(btnTakePhoto.getText(), image));
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			BufferedImage image = (BufferedImage) Globals.applyAllFilters(cameraPreviewController.getImage(),
+					Globals.tree.getProcessString(Globals.tree.getRootNode()));
+			Globals.tree.addChild(new TreeNode(btnTakePhoto.getText(), image));
+
 		}
+
 		/*
 		 * BufferedImage image=Globals.applyAllFilters(cameraPreview.getImage(),
 		 * getProcessStringFromTree());
@@ -103,7 +126,12 @@ public class MenuController implements Initializable {
 	@FXML
 	public void cameraPreview() {
 		try {
-			Pane cameraPrevFr = FXMLLoader.load(getClass().getResource("/Menu/CameraPreviewFrame.fxml"));
+			FXMLLoader cameraPreviewLoader = new FXMLLoader(
+					getClass().getResource("/Menu/CameraPreviewFrame.fxml"));
+			Pane cameraPrevFr = cameraPreviewLoader.load();
+			cameraPreviewController = cameraPreviewLoader.getController();
+			
+			//Pane cameraPrevFr = FXMLLoader.load(getClass().getResource("/Menu/CameraPreviewFrame.fxml"));
 			Stage stage = new Stage();
 			stage.setTitle("Camera Preview");
 			stage.setScene(new Scene(cameraPrevFr));

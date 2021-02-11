@@ -10,6 +10,7 @@ import javax.swing.plaf.basic.BasicPanelUI;
 import arvasis.drawing.GraphicsIO;
 import arvasis.drawing.objects.BoundaryCluster;
 import arvasis.drawing.objects.PixelLocation;
+import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
 import javafx.fxml.FXML;
@@ -55,6 +56,9 @@ public class ShapeClassificationController implements Initializable {
 		
 		Globals.trainResultParameter = result;
 		GraphicsIO.saveSimpleClassifierTrainingData(fileName, objectDefinition,  Globals.trainResultParameter);
+		
+		String script = "Packages.arvasis.drawing.GraphicsIO.saveSimpleClassifierTrainingData("+fileName+","+ objectDefinition+","+  Globals.trainResultParameter+")";
+		Globals.tree.addChild(new TreeNode("Train", script));
 	}
 	
 	@FXML public void detect() {
@@ -74,17 +78,20 @@ public class ShapeClassificationController implements Initializable {
 		BoundaryCluster object = GraphicsIO.detectBoundaries(map)[0];
 		Rectangle r=object.getShapeRectangle();
 		
-		boolean[][] result=new boolean[r.height+1][r.width+1];
+		boolean[][] res=new boolean[r.height+1][r.width+1];
 		for(PixelLocation p:object.getNormalizedPoints())
-			result[p.y][p.x]=true;
+			res[p.y][p.x]=true;
 		//DataVisualizer.showImageInNewFrame(result);
 
 		
 		GraphicsIO.loadSimpleClassifierTrainingData(fileName);
-		
-		String res = (String) GraphicsIO.detectObjectBySimpleClassifier(0, 1, result);
+		String result = (String) GraphicsIO.detectObjectBySimpleClassifier(0, threshold, res);
 		//System.out.println(res);
-		Globals.setAlertInformation(String.valueOf(res));
+		
+		String script="result = Packages.arvasis.drawing.GraphicsIO.detectObjectBySimpleClassifier(0, "+threshold+","+ res+");";
+		Globals.tree.addChild(new TreeNode("Detect",result, script));
+		
+		Globals.setAlertInformation(String.valueOf(result));
 	}
 
 }

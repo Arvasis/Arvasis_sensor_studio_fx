@@ -110,9 +110,6 @@ public class AdapterController implements Initializable {
 			BufferedImage buff;
 			try {
 				image = GraphicsIO.readBufferedImage(imageFile.getAbsolutePath());
-				
-
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -131,8 +128,9 @@ public class AdapterController implements Initializable {
 			//Globals.refreshArrCam();
 			if (camera instanceof VirtualCamera) {
 				Globals.image=image;
-			}else 
+			}else { 
 				Globals.image = Globals.cam.getImage();
+			}
 			
 			menuController.getCbCamera().getItems().add(camera);
 			} catch (Exception e) {

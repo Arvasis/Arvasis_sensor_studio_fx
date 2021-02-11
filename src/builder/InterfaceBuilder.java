@@ -5,13 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
-import com.gitlab.haynes.paranamer.CachingParanamer;
-import com.gitlab.haynes.paranamer.Paranamer;
-
-import arvasis.sensor.studio.tree.TreeNode;
-import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
-import globals.Globals.ImageType;
 import interfacebuilder.FiltersFrame;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.layout.GridPane;
 
 public class InterfaceBuilder {
