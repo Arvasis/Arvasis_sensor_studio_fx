@@ -1,10 +1,12 @@
 package controller.analysis;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import arvasis.drawing.GraphicsIO;
 import arvasis.drawing.objects.BoundaryCluster;
 import arvasis.drawing.objects.PixelLocation;
+import arvasis.sensor.studio.tree.TreeNode;
 import globals.Globals;
 import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
@@ -14,6 +16,7 @@ public class ImageCleaningController {
 	@FXML private Spinner<Integer> spLarger;
 	private BufferedImage oldImage;
 	private String process;
+	private ArrayList<TreeNode> treeNodes=new ArrayList<TreeNode>();
 	@FXML
 	public void applyPixelSmaller() {
 		int pixel = spSmaller.getValue();
@@ -41,14 +44,15 @@ public class ImageCleaningController {
 				+ "		}\r\n";
 		
 		Globals.runScript(process);
-		
+		treeNodes.add(new TreeNode("Pixel Smaller Than: "+pixel,img,process));
+
 		/// training kısmı
 	}
 	@FXML
 	public void applyPixelLarger() {
 		int pixel = (int) spLarger.getValue();
 
-		BufferedImage img = (BufferedImage) Globals.mainController.getImage();
+		BufferedImage img = (BufferedImage) Globals.tree.getImageForProcess();
 		oldImage=img;
 		boolean[][] map = GraphicsIO.convertImageToMap(img);
 
@@ -68,15 +72,14 @@ public class ImageCleaningController {
 				+ "				for (p in c.getPoints())\r\n"
 				+ "					map[p.y][p.x] = false;\r\n"
 				+ "		}";
-		
-		//TODO create Tree node add to array
+		treeNodes.add(new TreeNode("Pixel Larger Than: "+pixel,img,process));
 	}
 	@FXML
 	public void selectLargestCluster() {
 		int minSize = 0, size;
 		BoundaryCluster object = null;
 
-		BufferedImage img = (BufferedImage) Globals.mainController.getImage();
+		BufferedImage img = (BufferedImage) Globals.tree.getImageForProcess();
 		oldImage=img;
 
 		Globals.mapParameter = GraphicsIO.convertImageToMap(img);
@@ -114,7 +117,7 @@ public class ImageCleaningController {
 				+ "			}\r\n"
 				+ "		}";
 		
-		//TODO create Tree node add to array
+		treeNodes.add(new TreeNode("Select Largerst Cluster",img,process));
 	}
 	@FXML
 	public void selectSmallestCluster() {
@@ -158,7 +161,7 @@ public class ImageCleaningController {
 				+ "					mapParameter[pl.y][pl.x] = false;\r\n"
 				+ "			}\r\n"
 				+ "		}";
-		//TODO create Tree node add to array
+		treeNodes.add(new TreeNode("Select Smallest Cluster",img,process));
 	}
 	@FXML
 	public void undoClearPixelSmaller() {
@@ -182,6 +185,8 @@ public class ImageCleaningController {
 	@FXML 
 	public void apply() {
 		
-		//TODO add to tree
+		for (TreeNode treeNode : treeNodes) {
+			Globals.tree.addChild(treeNode);
+		}
 	}
 }

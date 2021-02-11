@@ -6,7 +6,7 @@ public class TreeNode {
 	private String processString;
 	private String nodeName;
 	private boolean isEmpty=false;
-	
+	private boolean isCondition=false;
 	public TreeNode() {
 		this.nodeName="Empty Node";
 		this.isEmpty=true;
@@ -25,7 +25,7 @@ public class TreeNode {
 		this.nodeName = nodeName;
 		this.image = image;
 	}
-
+	
 	public TreeNode(String nodeName) {
 		this.nodeName = nodeName;
 	}
@@ -63,6 +63,12 @@ public class TreeNode {
 	}
 	public void setEmpty(boolean isEmpty) {
 		this.isEmpty = isEmpty;
+	}
+	public boolean isCondition() {
+		return isCondition;
+	}
+	public void setCondition(boolean isCondition) {
+		this.isCondition = isCondition;
 	}
 
 }
