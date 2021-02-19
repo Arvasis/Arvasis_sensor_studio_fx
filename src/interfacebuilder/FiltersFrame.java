@@ -1,5 +1,6 @@
 package interfacebuilder;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -43,6 +45,30 @@ public abstract class FiltersFrame {
 			btnApplyAddMouseListener();
 
 			btnUndoAllChanges = (Button) grd.getChildren().get(1);
+			btnUndoAllChanges.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					/*if (Globals.llImage.size() > 1) {
+						for (int i = 1; i < Globals.llImage.size(); i++) {
+							Globals.llImage.remove(i);
+						}
+
+					} else {
+						BufferedImage i = (BufferedImage) Globals.llImage.get(0);
+						Globals.mainController.setImage(i);
+						
+					}*/
+					TreeItem<TreeNode> item = Globals.tree.getRootNode();
+					TreeNode node = item.getValue();
+					node.getImage();
+					//System.out.println("undo");
+					Globals.mainController.setImage(node.getImage());
+					//System.out.println("undo");
+					
+				}
+			});
 			HBox hbox = (HBox) grd.getChildren().get(2);
 			btnOk=(Button) hbox.getChildren().get(0);
 			btnOk.setOnAction(new EventHandler<ActionEvent>() {
@@ -86,7 +112,11 @@ public abstract class FiltersFrame {
 	}
 	public void deleteFilter() {
 		//TODO set previous node image to imageview
-	}
+		TreeItem<TreeNode> item = Globals.tree.getLastAddedNode();
+		TreeNode node = item.getValue();
+		//node.getImage();
+		Globals.mainController.setImage(node.getImage());
+		}
 	public void show(String title) {
 		stage = new Stage();
 		stage.setTitle(title);

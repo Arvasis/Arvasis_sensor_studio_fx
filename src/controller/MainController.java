@@ -32,10 +32,13 @@ public class MainController implements Initializable {
 
 	public TitledPane applicationStepsPanel;
 	public HBox menuPanel;
+	public MenuController menuController;
 
 	public void setImage(Object image) {
-
+		//System.out.println(image.getClass().toString());
+		//System.out.println(Globals.imageType);
 		imagePanel.setImage(convertObjectToImage(image));
+		
 
 	}
 
@@ -45,6 +48,17 @@ public class MainController implements Initializable {
 	}
 
 	public Image convertObjectToImage(Object obj) {
+	
+		if(obj instanceof BufferedImage) {
+			Globals.imageType = Globals.ImageType.BufferedImage;
+		}
+		if(obj instanceof Integer) {
+			Globals.imageType = Globals.ImageType.Integer;
+		}
+		if(obj instanceof Boolean) {
+			Globals.imageType = Globals.ImageType.Boolean;
+		}
+		
 		Image image;
 		BufferedImage buff = null;
 		if (Globals.imageType == ImageType.BufferedImage) {
@@ -91,7 +105,7 @@ public class MainController implements Initializable {
 			FXMLLoader menuLoader = new FXMLLoader(getClass().getResource("/Main/MenuPanel.fxml"));
 			menuPanel = menuLoader.load();
 
-			MenuController menuController = menuLoader.getController();
+			menuController = menuLoader.getController();
 			applicationStepsController.setMenuController(menuController);
 
 			mainPane.setTop(menuPanel);

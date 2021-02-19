@@ -2,12 +2,14 @@ package controller.identification;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.IntBinaryOperator;
 
 import javax.swing.table.TableStringConverter;
 
 import arvasis.drawing.objects.PixelLocation;
+import globals.Globals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -97,8 +99,14 @@ public class FiltersFrameController implements Initializable {
 	public boolean isChangedRedDiff = false;
 	
 
-	public PixelLocation[] pixel;
+	public PixelLocation[] points;
+	ObservableList<Pixel> arrPixel = FXCollections.observableArrayList();
+	
 	public int[] lowerThreshold, upperThreshold;
+	ObservableList<RGB> arrRGBL = FXCollections.observableArrayList();
+	ObservableList<RGB> arrRGBU = FXCollections.observableArrayList();
+	
+	Stage stagePixel,stageRGB;
 	String type;
 
 	@Override
@@ -117,6 +125,7 @@ public class FiltersFrameController implements Initializable {
 
 			}
 		});
+		spRGBDiff.setEditable(false);
 
 	}
 
@@ -126,10 +135,10 @@ public class FiltersFrameController implements Initializable {
 			loader.setController(this);
 			Parent root = loader.load();
 
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.setTitle(title);
-			stage.show();
+			 stageRGB = new Stage();
+			 stageRGB.setScene(new Scene(root));
+			 stageRGB.setTitle(title);
+			 stageRGB.show();
 
 			rgb.setCellValueFactory(new PropertyValueFactory<>("rgb"));
 			rgb.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -137,6 +146,10 @@ public class FiltersFrameController implements Initializable {
 
 			tableRGB.setEditable(true);
 			tableRGB.setContextMenu(cmPopup);
+			if(type.equals("lower"))
+				tableRGB.setItems(arrRGBL);
+			if(type.equals("upper"))
+				tableRGB.setItems(arrRGBU);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,10 +162,10 @@ public class FiltersFrameController implements Initializable {
 			loader.setController(this);
 			Parent root = loader.load();
 
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.setTitle(title);
-			stage.show();
+			 stagePixel = new Stage();
+			 stagePixel.setScene(new Scene(root));
+			 stagePixel.setTitle(title);
+			 stagePixel.show();
 
 			colX.setCellValueFactory(new PropertyValueFactory<>("colX"));
 			colX.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -161,6 +174,8 @@ public class FiltersFrameController implements Initializable {
 
 			tablePixel.setEditable(true);
 			tablePixel.setContextMenu(cmPopupPixel);
+			//tablePixel.getItems().add(new Pixel("0","0"));
+			tablePixel.setItems(arrPixel);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,7 +197,7 @@ public class FiltersFrameController implements Initializable {
 				for (int i = 0; i < size; i++) {
 					String x = String.valueOf(tableRGB.getItems().get(i).getRgb());
 					lowerThreshold[i] = Integer.valueOf(x);
-					System.out.println(type+ "   "+x);
+					//System.out.println(type+ "   "+x);
 					btnLower.setStyle("-fx-background-color: #ff0000; ");
 				}
 
@@ -195,7 +210,7 @@ public class FiltersFrameController implements Initializable {
 				upperThreshold = new int[size];
 				for (int i = 0; i < size; i++) {
 					String x = String.valueOf(tableRGB.getItems().get(i).getRgb());
-					System.out.println(type+"  "+x);
+					//System.out.println(type+"  "+x);
 					upperThreshold[i] = Integer.valueOf(x);
 					btnUpper.setStyle("-fx-background-color: #ff0000; ");
 				}
@@ -204,45 +219,73 @@ public class FiltersFrameController implements Initializable {
 				btnUpper.setStyle("-fx-background-color: #ffff00; ");
 
 		}
+		stageRGB.close();
 	}
 
 	@FXML
 	public void enterPixel() {
 
 		int size = tablePixel.getItems().size();
-
+		//Pixel pixel = null;
 		if (size != 0) {
-			pixel = new PixelLocation[size];
+			PixelLocation p;
+			//arrPixel.clear();
+			points = new PixelLocation[size];
 			for (int i = 0; i < size; i++) {
 				String x = String.valueOf(tablePixel.getItems().get(i).getColX());
 				String y = String.valueOf(tablePixel.getItems().get(i).getColY());
 				
-				pixel[i] = new PixelLocation(Integer.valueOf(x), Integer.valueOf(y));
+				p= new PixelLocation(Integer.valueOf(x), Integer.valueOf(y));
+				//pixel = new Pixel(x, y);
+				points[i] =p;
+				
 				btnPoints.setStyle("-fx-background-color: #ff0000; ");
 			}
-
 		} else {
 			btnPoints.setStyle("-fx-background-color: #ffff00; ");
 		}
-
+		
+		stagePixel.close();
 	}
 
 	@FXML
 	public void onEditCommit(TableColumn.CellEditEvent<RGB, String> cellEditEvent) {
 		RGB rgb = tableRGB.getSelectionModel().getSelectedItem();
-		rgb.setRgb(cellEditEvent.getNewValue());
+		
+		if(Globals.isNumeric(cellEditEvent.getNewValue())==true) {
+			rgb.setRgb(cellEditEvent.getNewValue());
+		}
+		else {
+			tablePixel.refresh();
+			rgb.setRgb("0");
+			Globals.setAlertInformation("Numeric karakter giriniz!");
+			
+		}
+		
+		
 
 	}
 
 	@FXML
 	public void addRow() {
-		tableRGB.getItems().add(new RGB("new Row"));
+		
+		tableRGB.getItems().add(new RGB("0"));
 	}
 
 	@FXML
 	public void onEditCommitPixelX(TableColumn.CellEditEvent<RGB, String> cellEditEvent) {
 		Pixel pixel = tablePixel.getSelectionModel().getSelectedItem();
-		pixel.setColX(cellEditEvent.getNewValue());
+		if(Globals.isNumeric(cellEditEvent.getNewValue())==true) {
+			pixel.setColX(cellEditEvent.getNewValue());
+		}
+		else {
+			tablePixel.refresh();
+			pixel.setColX("0");
+			Globals.setAlertInformation("Numeric ifade giriniz!");
+			
+		}
+		
+		
 		// pixel.setColY(cellEditEvent.getNewValue());
 
 	}
@@ -250,8 +293,16 @@ public class FiltersFrameController implements Initializable {
 	@FXML
 	public void onEditCommitPixelY(TableColumn.CellEditEvent<RGB, String> cellEditEvent) {
 		Pixel pixel = tablePixel.getSelectionModel().getSelectedItem();
-		// pixel.setColX(cellEditEvent.getNewValue());
-		pixel.setColY(cellEditEvent.getNewValue());
+		if(Globals.isNumeric(cellEditEvent.getNewValue())==true) {
+			pixel.setColY(cellEditEvent.getNewValue());
+		}
+		else {
+			tablePixel.refresh();
+			pixel.setColY("0");
+			Globals.setAlertInformation("Numeric ifade giriniz!");
+			
+		}
+		
 
 	}
 
