@@ -92,7 +92,7 @@ public class IdentificationController {
 											(int) filtersFrameController.cpUpperThresholdRGB.getValue().getBlue());
 
 									boolean[][] image = GraphicsIO.applyThresholdForMap(
-											(BufferedImage) Globals.tree.getImageForProcess(), lowerRGB, upperRGB);
+											 (BufferedImage) Globals.tree.getImageForProcess(), lowerRGB, upperRGB);
 									boolean[][] b = GraphicsIO.not(image);
 									
 									processString = "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
@@ -101,7 +101,9 @@ public class IdentificationController {
 
 									//Globals.tree.addChild(new TreeNode("Fixed Color Extraction: Image,"+lowerRGB+","+upperRGB,image,processString));
 									Globals.imageType = Globals.ImageType.Boolean;
+									System.out.println("fixed");
 									Globals.mainController.setImage(b);
+									System.out.println("fixed");
 									//Globals.runprocessString(content, (String) Globals.processString);
 									// Globals.engine.getVar("image");
 
@@ -167,13 +169,14 @@ public class IdentificationController {
 
 									int[][] intImage = GraphicsIO
 											.convertToIntegerArray((BufferedImage) Globals.tree.getImageForProcess());
+								
 									boolean[][] image = GraphicsIO.applyThresholdForMap(intImage,
-											filtersFrameController.pixel, lowerRGB, upperRGB, rgbDiff, inverse);
+											filtersFrameController.points, lowerRGB, upperRGB, rgbDiff, inverse);
 									boolean[][] b = GraphicsIO.not(image);
 
 									processString  = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 											+ "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
-											+ filtersFrameController.pixel + "," + lowerRGB + ", " + upperRGB + ","
+											+ filtersFrameController.points + "," + lowerRGB + ", " + upperRGB + ","
 											+ rgbDiff + "," + inverse + ");"
 											+ "image =  Packages.arvasis.drawing.GraphicsIO.not(image)";
 									
@@ -183,7 +186,8 @@ public class IdentificationController {
 								} else {
 
 									Globals.setAlertInformation(
-											"{Lower Threshold RGB - Upper Threshold RGB - Background Color - Inverse}\n"
+											"Uygun Parametreler:\n" + "{Lower Threshold RGB - Upper Threshold RGB}\n"
+													+ "{Lower Threshold RGB - Upper Threshold RGB - Background Color - Inverse}\n"
 													+ "{Points - Lower Threshold RGB - Upper Threshold RGB-Rgb Diff - Is Inverse}");
 								}
 
@@ -331,7 +335,7 @@ public class IdentificationController {
 													.equals("0x00000000")
 											&& filtersFrameController.cbInverse.isSelected() == true
 											&& filtersFrameController.isChangedRgbDiff == false
-											&& filtersFrameController.pixel.length != 0) {
+											&& filtersFrameController.points.length != 0) {
 
 										int lowerRGB = GraphicsIO.getRGB(
 												(int) filtersFrameController.cpLowerThresholdRGB.getValue().getRed(),
@@ -349,11 +353,11 @@ public class IdentificationController {
 										int[][] i = GraphicsIO.convertToIntegerArray(
 												(BufferedImage) Globals.tree.getImageForProcess());
 										boolean[][] image = GraphicsIO.applyThresholdForMap(i,
-												filtersFrameController.pixel, lowerRGB, upperRGB, rgbDiff, inverse);
+												filtersFrameController.points, lowerRGB, upperRGB, rgbDiff, inverse);
 										
 										processString = "image = Packages.arvasis.drawing.GraphicsIO.convertToIntegerArray(image);"
 												+ "image = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image,"
-												+ filtersFrameController.pixel + "," + lowerRGB + "," + upperRGB + ","
+												+ filtersFrameController.points + "," + lowerRGB + "," + upperRGB + ","
 												+ rgbDiff + "," + inverse + ")";
 										
 										//Globals.tree.addChild(new TreeNode("Threshold For Map: Image,"+filtersFrameController.pixel+","+lowerRGB+ "," + upperRGB + "," + rgbDiff + "," + inverse,image,processString));
@@ -841,6 +845,8 @@ public class IdentificationController {
 
 		if (filterType.equals(FilterType.RedThresholdForMap)) {
 			filtersFrameController.btnLower.setMinHeight(20);
+			//filtersFrameController.btnLower.setVisible(false);
+			//filtersFrameController.btnLower.setVisible(false);
 
 			filtersFrameController.lblRedLower = new Label("Red Lower Bound:");
 			filtersFrameController.cpRedLower = new ColorPicker();
