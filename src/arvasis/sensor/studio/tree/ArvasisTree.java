@@ -50,25 +50,11 @@ public class ArvasisTree extends TreeView<TreeNode> {
 				selectedNode = newValue;
 
 				TreeNode nodeInfo = newValue.getValue();
-				/*
-				 * if (nodeInfo.isEmpty()) { selectedNode = newValue; } else selectedNode =
-				 * null;
-				 */
-				System.out.println(nodeInfo);
-				System.out.println(nodeInfo.isEmpty());
+				
 				if (nodeInfo.getImage() != null) {
 					Object image = nodeInfo.getImage();
-					BufferedImage img = null;
-					if (Globals.imageType == ImageType.BufferedImage) {
-						img = (BufferedImage) image;
-
-					} else if (Globals.imageType == ImageType.Integer) {
-						img = GraphicsIO.convertArrayToImage((int[][]) image);
-					} else if (Globals.imageType == ImageType.Boolean) {
-						img = GraphicsIO.convertMapToImage((boolean[][]) image);
-					}
-
-//					DataVisualizer.showImage((BufferedImage)image);
+					System.out.println(image);
+					
 					Globals.mainController.setImage(image);
 				}
 			}
@@ -156,7 +142,9 @@ public class ArvasisTree extends TreeView<TreeNode> {
 		TreeItem<TreeNode> childNode = new TreeItem<TreeNode>(child);
 		lastAddedNode = childNode;
 		parentNode.getChildren().add(childNode);
-		
+		if (child.isCondition()) {
+			addChild(new TreeNode(),true);
+		}
 		childNode.setExpanded(true);
 		/*
 		 * treeModel.insertNodeInto(childNode, parentNode, parentNode.getChildCount());
@@ -182,15 +170,19 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	public TreeItem<TreeNode> updateSelectedNode(TreeNode newNode) {
 		TreeItem<TreeNode> node = selectedNode;
 		TreeNode treeNode = selectedNode.getValue();
-		lastAddedNode=selectedNode;
+		//lastAddedNode=selectedNode;
 		System.out.println("condition:"+treeNode.isCondition());
 
 		updateNode(treeNode, newNode.getNodeName(), newNode.getImage(), newNode.getProcessString());
 		System.out.println("condition:"+newNode.isCondition());
 		if (!newNode.isCondition()) {
 			addChild(node.getParent(),new TreeNode());
+		}else {
+			addChild(node,new TreeNode());
+			//addChild(node.getParent(),new TreeNode());
+			System.out.println(node.getParent().getValue().getNodeName());
 		}
-		
+	//Globals.tree.addChild(new TreeNode(),true);
 		return node;
 	}
 	public TreeItem<TreeNode> updateSelectedNode(String nodeName, Object image, String processString) {
@@ -359,7 +351,7 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	}
 	public Object getImageForProcess() {
 		Object image=null;
-	
+		System.out.println("selectedNode:"+selectedNode);
 		if (selectedNode!=null) {
 			TreeNode node=getSelectedTreeNode();
 			if (node.isEmpty()) {
@@ -369,10 +361,69 @@ public class ArvasisTree extends TreeView<TreeNode> {
 					image=parent.getImage();
 
 				}else image=((TreeNode)getSelectedNode().previousSibling().getValue()).getImage();
-			}else	image = Globals.mainController.getImage();
-		}else image = Globals.mainController.getImage();
+			}else {
+				if (rootNode.getChildren().size()>0) {
+
+					TreeItem<TreeNode> lastChild = rootNode.getChildren().get(rootNode.getChildren().size()-1);
+					System.out.println("lastAdded child: "+lastChild.getValue().getNodeName());
+					if (lastChild.getValue().isCondition()) {
+						TreeItem<TreeNode> startNode=getConditionOrLoopStart(lastChild);
+						System.out.println("start node:"+startNode.getValue().getNodeName());
+						try {					
+							Globals.engine.putVar("image", startNode.getValue().getImage());
+
+							Globals.engine.runScript(Globals.tree.getProcessStrings(startNode));
+							BufferedImage buff=(BufferedImage) Globals.engine.getVar("image");
+							DataVisualizer.showImageInNewFrame(buff,"get ýmg f process");
+							image= buff;
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}else image=lastAddedNode.getValue().getImage();
+					
+				}else image= rootNode.getValue().getImage();
+				//return lastAddedNode.getValue().getImage();
+
+			}
+		}else {
+			if (rootNode.getChildren().size()>0) {
+
+				TreeItem<TreeNode> lastChild = rootNode.getChildren().get(rootNode.getChildren().size()-1);
+				System.out.println("lastAdded child: "+lastChild.getValue().getNodeName());
+				if (lastChild.getValue().isCondition()) {
+					TreeItem<TreeNode> startNode=getConditionOrLoopStart(lastChild);
+					System.out.println("start node:"+startNode.getValue().getNodeName());
+					try {					
+						Globals.engine.putVar("image", startNode.getValue().getImage());
+
+						Globals.engine.runScript(Globals.tree.getProcessStrings(startNode));
+						BufferedImage buff=(BufferedImage) Globals.engine.getVar("image");
+						DataVisualizer.showImageInNewFrame(buff,"get ýmg f process");
+						image= buff;
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else image=lastAddedNode.getValue().getImage();
+				
+			}else image= Globals.image;
+			//return lastAddedNode.getValue().getImage();
+
+		
+		}
 		image=Globals.copyObject(image);
 		return image;
+	}
+	public TreeItem<TreeNode> getConditionOrLoopStart(TreeItem<TreeNode> lastRootChild) {
+		while (lastRootChild.previousSibling()!=null) {
+			boolean isHead=lastRootChild.previousSibling().getValue().isConditionOrLoopHead();
+			if (isHead) {
+				return lastRootChild.previousSibling();
+			}
+			return getConditionOrLoopStart(lastRootChild.previousSibling());
+		}
+		return null;
 	}
 
 	public TreeItem<TreeNode> getSelectedNodeParent() {

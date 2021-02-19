@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import globals.Globals;
 import interfacebuilder.FiltersFrame;
@@ -40,6 +41,7 @@ public class InterfaceBuilder {
 	public void setFunctionsStartsWithApply(Class cls) {
 		Method[] allMethods = cls.getMethods();
 		// methods=new Method[allMethods.length];
+		
 		int i = 0;
 		for (Method method : allMethods) {
 			if (method.getName().startsWith("apply")) {

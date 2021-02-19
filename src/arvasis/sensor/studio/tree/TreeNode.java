@@ -6,7 +6,8 @@ public class TreeNode {
 	private String processString;
 	private String nodeName;
 	private boolean isEmpty=false;
-	private boolean isCondition=false;
+	private boolean isConditionOrLoop=false;
+	private boolean isConditionOrLoopHead=false;
 	public TreeNode() {
 		this.nodeName="Empty Node";
 		this.isEmpty=true;
@@ -65,10 +66,16 @@ public class TreeNode {
 		this.isEmpty = isEmpty;
 	}
 	public boolean isCondition() {
-		return isCondition;
+		return isConditionOrLoop;
 	}
 	public void setCondition(boolean isCondition) {
-		this.isCondition = isCondition;
+		this.isConditionOrLoop = isCondition;
+	}
+	public boolean isConditionOrLoopHead() {
+		return isConditionOrLoopHead;
+	}
+	public void setConditionOrLoopHead(boolean isConditionOrLoopHead) {
+		this.isConditionOrLoopHead = isConditionOrLoopHead;
 	}
 
 }

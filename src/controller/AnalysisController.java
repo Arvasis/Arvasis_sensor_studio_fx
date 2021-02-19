@@ -88,18 +88,22 @@ public class AnalysisController {
 	@FXML
 	public void calculatePerimeter() {
 		Object img = globals.Globals.mainController.getImage();
-		calculatePerimeter((BufferedImage) img);
+		//calculatePerimeter((BufferedImage) img);
+		String process="objectPerimeter=Packages.controller.AnalysisController.calculatePerimeter(image);\r\n";
+		Globals.runScript(process);
+		objectPerimeter=(double) Globals.engine.getVar("objectPerimeter");
 		new Alert(AlertType.INFORMATION,"Perimeter: " + String.valueOf(objectPerimeter)).show();
-		String process="perimeter=Packages.controller.AnalysisController.calculatePerimeter(image);\r\n";
 		Globals.tree.addChild(new TreeNode("Calculate Perimeter: "+objectPerimeter,img,process));
 	}
 
 	@FXML
 	public void calculateArea() {
 		Object img = Globals.tree.getImageForProcess();
-		calculateArea((BufferedImage) img);
+		//calculateArea((BufferedImage) img);
+		String process="objectArea=Packages.controller.AnalysisController.calculateArea(image);\r\n";
+		Globals.runScript(process);
+		objectArea=(double) Globals.engine.getVar("objectArea");
 		new Alert(AlertType.INFORMATION,"Area: " + String.valueOf(objectArea)).show();
-		String process="area=Packages.controller.AnalysisController.calculateArea(image);\r\n";
 		/*Globals.runScript(process);
 		new Alert(AlertType.INFORMATION,"Area: " + String.valueOf(Globals.engine.getVar("area"))).show();*/
 		Globals.tree.addChild(new TreeNode("Calculate Area: "+objectArea,img,process));

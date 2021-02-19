@@ -47,16 +47,17 @@ public class MainController implements Initializable {
 	public Image convertObjectToImage(Object obj) {
 		Image image;
 		BufferedImage buff = null;
-		if (Globals.imageType == ImageType.BufferedImage) {
+		if (obj instanceof BufferedImage) {
 			buff = (BufferedImage) obj;
 
-		} else if (Globals.imageType == ImageType.Integer) {
+		} else if (obj instanceof int[][]) {
 			buff = GraphicsIO.convertArrayToImage((int[][]) obj);
 
-		} else if (Globals.imageType == ImageType.Boolean) {
+		} else if (obj instanceof boolean[][]) {
 			buff = GraphicsIO.convertMapToImage((boolean[][]) obj);
 
 		}
+
 		image = SwingFXUtils.toFXImage(buff, null);
 		return image;
 	}
