@@ -63,9 +63,10 @@ public class ConditionController implements Initializable {
 		Object image = Globals.tree.getImageForProcess();
 
 		String nodeName = "";
+		String processString = "";
 		TreeItem<TreeNode> parent=null;
 		for (ConditionPanelController panel : panelControllers) {
-			String processString = "";
+			processString="";
 
 			if (panel.isFilled()) {
 				if (i == 0) {
@@ -101,20 +102,28 @@ public class ConditionController implements Initializable {
 
 				TreeNode node=new TreeNode(nodeName,image,processString);
 				node.setCondition(true);
-				parent=Globals.tree.addChild(node);
+				if (i==0) {
+					node.setConditionOrLoopHead(true);
+					parent=Globals.tree.addChild(node);
+
+				}else Globals.tree.addChild(parent.getParent(),node);
 				
-				Globals.tree.addChild(new TreeNode(),true);
+				
 				i++;
 
 			}
-			if (hasElse.isSelected()) {
-				processString = "else";
-				
-				TreeItem<TreeNode> node=Globals.tree.addChild(parent.getParent(),new TreeNode(processString, image, processString));
-				Globals.tree.addChild(new TreeNode(),true);
-			}
 		}
+		if (hasElse.isSelected()) {
+			processString = "else";
+			TreeNode elseNode=new TreeNode(processString, image, processString);
+			elseNode.setCondition(true);
+			TreeItem<TreeNode> node=Globals.tree.addChild(parent.getParent(),elseNode);
+		//	Globals.tree.addChild(new TreeNode(),true);
+		}
+		if (parent.getParent()!=Globals.tree.getRoot()) {
+			Globals.tree.addChild(parent.getParent(),new TreeNode());
 
+		}
 	 cancel();
 	}
 

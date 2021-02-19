@@ -8,6 +8,7 @@ import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import arvasis.drawing.GraphicsIO;
 import arvasis.sensor.studio.tree.TreeNode;
+import arvasis.tool.visualization.DataVisualizer;
 import controller.identification.FiltersFrameController;
 import controller.identification.ShapeClassificationController;
 import globals.Globals;
@@ -94,7 +95,7 @@ public class IdentificationController {
 									boolean[][] image = GraphicsIO.applyThresholdForMap(
 											 (BufferedImage) Globals.tree.getImageForProcess(), lowerRGB, upperRGB);
 									boolean[][] b = GraphicsIO.not(image);
-									
+
 									processString = "image  = Packages.arvasis.drawing.GraphicsIO.applyThresholdForMap(image, "
 											+ lowerRGB + ", " + upperRGB + ");"
 											+ "image =  Packages.arvasis.drawing.GraphicsIO.not(image)";

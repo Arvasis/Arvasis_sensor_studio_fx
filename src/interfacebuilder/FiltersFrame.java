@@ -104,6 +104,7 @@ public abstract class FiltersFrame {
 			processName += titles[i] + " ";
 		}*/
 		//String processString = (String) Globals.processString;
+		
 		String parameters = processString.substring(processString.indexOf("(") + 1, processString.indexOf(")"));
 		processName += " " + parameters;
 		System.out.println(processName);
