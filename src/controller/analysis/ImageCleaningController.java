@@ -21,10 +21,9 @@ public class ImageCleaningController {
 	public void applyPixelSmaller() {
 		int pixel = spSmaller.getValue();
 
-		BufferedImage img = (BufferedImage) Globals.mainController.getImage();
+		/*BufferedImage img = (BufferedImage) Globals.mainController.getImage();
 		oldImage=img;
 		boolean[][] map = GraphicsIO.convertImageToMap(img);
-
 		BoundaryCluster[] cluster = GraphicsIO.detectBoundaries(map);
 		for (BoundaryCluster c : cluster) {
 			if (c.getPoints().length < pixel)
@@ -32,7 +31,7 @@ public class ImageCleaningController {
 					map[p.y][p.x] = false;
 		}
 		System.out.println("c " + cluster.length);
-		Globals.mainController.setImage(GraphicsIO.convertMapToImage(map));
+		Globals.mainController.setImage(GraphicsIO.convertMapToImage(map));*/
 		//TODO create Tree node add to array
 		
 		process+="map = Packages.arvasis.drawing.GraphicsIO.convertImageToMap(image);\r\n"
@@ -44,7 +43,10 @@ public class ImageCleaningController {
 				+ "		}\r\n";
 		
 		Globals.runScript(process);
-		treeNodes.add(new TreeNode("Pixel Smaller Than: "+pixel,img,process));
+		
+		Object obj =Globals.engine.getVar("map");
+		Globals.mainController.setImage(obj);
+		treeNodes.add(new TreeNode("Pixel Smaller Than: "+pixel,obj,process));
 
 		/// training kısmı
 	}
@@ -52,7 +54,7 @@ public class ImageCleaningController {
 	public void applyPixelLarger() {
 		int pixel = (int) spLarger.getValue();
 
-		BufferedImage img = (BufferedImage) Globals.tree.getImageForProcess();
+		/*BufferedImage img = (BufferedImage) Globals.tree.getImageForProcess();
 		oldImage=img;
 		boolean[][] map = GraphicsIO.convertImageToMap(img);
 
@@ -63,7 +65,7 @@ public class ImageCleaningController {
 					map[p.y][p.x] = false;
 		}
 		System.out.println("c " + cluster.length);
-		Globals.mainController.setImage(GraphicsIO.convertMapToImage(map));
+		Globals.mainController.setImage(GraphicsIO.convertMapToImage(map));*/
 		
 		process+="map = Packages.arvasis.drawing.GraphicsIO.convertImageToMap(image);\r\n"
 				+ "cluster = Packages.arvasis.drawing.GraphicsIO.detectBoundaries(map);\r\n"
@@ -72,11 +74,14 @@ public class ImageCleaningController {
 				+ "				for (p in c.getPoints())\r\n"
 				+ "					map[p.y][p.x] = false;\r\n"
 				+ "		}";
-		treeNodes.add(new TreeNode("Pixel Larger Than: "+pixel,img,process));
+		Globals.runScript(process);
+		Object obj = Globals.engine.getVar("map"); 
+		Globals.mainController.setImage(obj);
+		treeNodes.add(new TreeNode("Pixel Larger Than: "+pixel,obj,process));
 	}
 	@FXML
 	public void selectLargestCluster() {
-		int minSize = 0, size;
+		/*int minSize = 0, size;
 		BoundaryCluster object = null;
 
 		BufferedImage img = (BufferedImage) Globals.tree.getImageForProcess();
@@ -99,7 +104,8 @@ public class ImageCleaningController {
 					Globals.mapParameter[pl.y][pl.x] = false;
 			}
 		}
-		Globals.mainController.setImage(GraphicsIO.convertMapToImage(Globals.mapParameter));
+		Globals.mainController.setImage(GraphicsIO.convertMapToImage(Globals.mapParameter));*/
+		
 		process+="mapParameter =Packages.arvasis.drawing.GraphicsIO.convertImageToMap(image);"
 				+ "cluster = Packages.arvasis.drawing.GraphicsIO.detectBoundaries(mapParameter);\r\n"
 				+ "		for ( c in cluster) {\r\n"
@@ -117,11 +123,14 @@ public class ImageCleaningController {
 				+ "			}\r\n"
 				+ "		}";
 		
-		treeNodes.add(new TreeNode("Select Largerst Cluster",img,process));
+		Globals.runScript(process);
+		Object obj = Globals.engine.getVar("mapParameter");
+		Globals.mainController.setImage(obj);
+		treeNodes.add(new TreeNode("Select Largerst Cluster",obj,process));
 	}
 	@FXML
 	public void selectSmallestCluster() {
-		int minSize = 0, size;
+		/*int minSize = 0, size;
 		BoundaryCluster object = null;
 
 		BufferedImage img = (BufferedImage) Globals.mainController.getImage();
@@ -144,7 +153,7 @@ public class ImageCleaningController {
 					Globals.mapParameter[pl.y][pl.x] = false;
 			}
 		}
-		Globals.mainController.setImage(GraphicsIO.convertMapToImage(Globals.mapParameter));
+		Globals.mainController.setImage(GraphicsIO.convertMapToImage(Globals.mapParameter));*/
 		process+="mapParameter = Packages.arvasis.drawing.GraphicsIO.convertImageToMap(image);\r\n"
 				+ "cluster = Packages.arvasis.drawing.GraphicsIO.detectBoundaries(mapParameter);\r\n"
 				+ "		for (c in cluster) {\r\n"
@@ -161,7 +170,10 @@ public class ImageCleaningController {
 				+ "					mapParameter[pl.y][pl.x] = false;\r\n"
 				+ "			}\r\n"
 				+ "		}";
-		treeNodes.add(new TreeNode("Select Smallest Cluster",img,process));
+		Globals.runScript(process);
+		Object obj = Globals.engine.getVar("mapParameter");
+		Globals.mainController.setImage(obj);
+		treeNodes.add(new TreeNode("Select Smallest Cluster",obj,process));
 	}
 	@FXML
 	public void undoClearPixelSmaller() {
