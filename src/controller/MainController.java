@@ -61,7 +61,9 @@ public class MainController implements Initializable {
 			buff = GraphicsIO.convertMapToImage((boolean[][]) obj);
 
 		}
+
 		Globals.imageType = Globals.ImageType.BufferedImage;
+
 		image = SwingFXUtils.toFXImage(buff, null);
 		return image;
 	}

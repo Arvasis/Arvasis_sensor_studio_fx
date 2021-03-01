@@ -141,7 +141,7 @@ public class Globals {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return engine.getVar("image");
+		return Globals.copyObject(engine.getVar("image"));
 	}
 	public static Object runScript(Object obj,String varName,String process) {
 		engine.putVar(varName, obj);

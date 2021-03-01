@@ -84,7 +84,7 @@ public class LoopController implements Initializable {
 	//	Globals.tree.updateNode(treeNode, nodeName, image, processString);
 		TreeNode node = new TreeNode(nodeName, image, processString);
 		node.setCondition(true);
-
+		node.setConditionOrLoopHead(true);
 		TreeItem<TreeNode> treeItem=Globals.tree.addChild(node);
 		if (treeItem.getParent()!=null&&treeItem.getParent()!=Globals.tree.getRoot()) {
 			Globals.tree.addChild(treeItem.getParent(),new TreeNode());

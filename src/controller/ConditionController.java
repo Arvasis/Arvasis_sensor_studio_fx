@@ -99,7 +99,7 @@ public class ConditionController implements Initializable {
 				}
 				nodeName += panel.getSelectedCondition() + "\"" + panel.getValue() + "\"";
 				processString += panel.getSelectedCondition() + "\"" + panel.getValue() + "\"" + ")";
-
+				
 				TreeNode node=new TreeNode(nodeName,image,processString);
 				node.setCondition(true);
 				if (i==0) {
@@ -108,7 +108,7 @@ public class ConditionController implements Initializable {
 
 				}else Globals.tree.addChild(parent.getParent(),node);
 				
-				
+				image=Globals.copyObject(image);
 				i++;
 
 			}

@@ -91,6 +91,7 @@ public class InterfaceBuilder {
 							//Object image=Globals.mainController.getImage();
 							Object image=Globals.tree.getImageForProcess();
 							Object img=Globals.runScript(image,processString);
+							
 							Globals.mainController.setImage(img);
 						} catch (Exception e) {
 							e.printStackTrace();
