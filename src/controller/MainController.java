@@ -49,16 +49,6 @@ public class MainController implements Initializable {
 
 	public Image convertObjectToImage(Object obj) {
 	
-		/*if(obj instanceof BufferedImage) {
-			Globals.imageType = Globals.ImageType.BufferedImage;
-		}
-		if(obj instanceof Integer) {
-			Globals.imageType = Globals.ImageType.Integer;
-		}
-		if(obj instanceof Boolean) {
-			Globals.imageType = Globals.ImageType.Boolean;
-		}*/
-		
 		Image image;
 		BufferedImage buff = null;
 		if (obj instanceof BufferedImage) {
@@ -71,7 +61,9 @@ public class MainController implements Initializable {
 			buff = GraphicsIO.convertMapToImage((boolean[][]) obj);
 
 		}
-		Globals.imageType=Globals.ImageType.BufferedImage;
+
+		Globals.imageType = Globals.ImageType.BufferedImage;
+
 		image = SwingFXUtils.toFXImage(buff, null);
 		return image;
 	}
