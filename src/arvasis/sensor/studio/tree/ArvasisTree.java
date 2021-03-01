@@ -53,8 +53,6 @@ public class ArvasisTree extends TreeView<TreeNode> {
 				
 				if (nodeInfo.getImage() != null) {
 					Object image = nodeInfo.getImage();
-					System.out.println(image);
-					
 					Globals.mainController.setImage(image);
 				}
 			}
@@ -284,6 +282,7 @@ public class ArvasisTree extends TreeView<TreeNode> {
 				 * String packageName = "Packages.arvasis.drawing.GraphicsIO"; processString =
 				 * processString.replaceAll("GraphicsIO", packageName);
 				 */
+				System.out.println(processString);
 				Globals.engine.runScript(processString);
 				Object img = Globals.copyObject(Globals.engine.getVar("image"));
 				System.out.println();
@@ -351,22 +350,28 @@ public class ArvasisTree extends TreeView<TreeNode> {
 	}
 	public Object getImageForProcess() {
 		Object image=null;
-		System.out.println("selectedNode:"+selectedNode);
 		if (selectedNode!=null) {
 			TreeNode node=getSelectedTreeNode();
 			if (node.isEmpty()) {
-				TreeItem<TreeNode> parentnode=getSelectedNodeParent();
-				TreeNode parent=parentnode.getValue();
-				if (parentnode!=rootNode) {
-					image=parent.getImage();
+				if (selectedNode.previousSibling()!=null) {
+					image=selectedNode.previousSibling().getValue().getImage();
+				}else {
+					TreeItem<TreeNode> parentnode=getSelectedNodeParent();
+					TreeNode parent=parentnode.getValue();
+					if (parentnode!=rootNode) {
+						image=parent.getImage();
 
-				}else image=((TreeNode)getSelectedNode().previousSibling().getValue()).getImage();
+					}else image=getSelectedNode().previousSibling().getValue().getImage();
+				}
+				
 			}else {
 				if (rootNode.getChildren().size()>0) {
 
 					TreeItem<TreeNode> lastChild = rootNode.getChildren().get(rootNode.getChildren().size()-1);
 					System.out.println("lastAdded child: "+lastChild.getValue().getNodeName());
-					if (lastChild.getValue().isCondition()) {
+					TreeNode lastTreeNode=lastChild.getValue();
+
+					if (lastTreeNode.isCondition()&&!lastTreeNode.isConditionOrLoopHead()) {
 						TreeItem<TreeNode> startNode=getConditionOrLoopStart(lastChild);
 						System.out.println("start node:"+startNode.getValue().getNodeName());
 						try {					
@@ -391,7 +396,8 @@ public class ArvasisTree extends TreeView<TreeNode> {
 
 				TreeItem<TreeNode> lastChild = rootNode.getChildren().get(rootNode.getChildren().size()-1);
 				System.out.println("lastAdded child: "+lastChild.getValue().getNodeName());
-				if (lastChild.getValue().isCondition()) {
+				TreeNode lastTreeNode=lastChild.getValue();
+				if (lastTreeNode.isCondition()&&!lastTreeNode.isConditionOrLoopHead()) {
 					TreeItem<TreeNode> startNode=getConditionOrLoopStart(lastChild);
 					System.out.println("start node:"+startNode.getValue().getNodeName());
 					try {					
@@ -412,6 +418,7 @@ public class ArvasisTree extends TreeView<TreeNode> {
 
 		
 		}
+		DataVisualizer.showImageInNewFrame((BufferedImage)image);
 		image=Globals.copyObject(image);
 		return image;
 	}
