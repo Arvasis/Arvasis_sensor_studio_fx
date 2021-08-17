@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/nashorn/nashorn-core-15.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="interfaces"/>
 	<classpathentry kind="lib" path="lib/arvasis_tool_library.jar"/>
 	<classpathentry kind="lib" path="lib/arvasis_camera.jar"/>
 	<classpathentry kind="lib" path="lib/paranamer-2.9.0.jar"/>
 	<classpathentry kind="lib" path="config"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/filters.jar"/>
 	<classpathentry kind="lib" path="lib/jaxws-rt.jar"/>
@@ -44,10 +52,14 @@
 	<classpathentry kind="lib" path="lib/tess4j/tess4j-4.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/tess4j/xmlgraphics-commons-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/tess4j/zxing.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_251">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="lib/rhino-1.7.13.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.base.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.media.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.web.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="javafx/lib/javafx.fxml.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

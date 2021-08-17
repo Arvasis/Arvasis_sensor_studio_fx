@@ -1,14 +1,9 @@
 package interfacebuilder;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import javax.swing.border.TitledBorder;
-
 import arvasis.sensor.studio.tree.TreeNode;
-import arvasis.tool.grid.GridView;
-import controller.identification.FiltersFrameController;
 import globals.Globals;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -76,8 +71,9 @@ public abstract class FiltersFrame {
 				@Override
 				public void handle(ActionEvent event) {
 					
-					addFilter(Globals.mainController.getImage());
-					
+					//addFilter(Globals.mainController.getImage());
+					addFilter();
+
 				}
 			});
 			
@@ -98,19 +94,24 @@ public abstract class FiltersFrame {
 		show(title);
 	}
 	public void addFilter(Object image) {
-		//String[] titles =title.split(" ");
 		String processName = title+": ";
-	/*	for (int i = 0; i < titles.length - 1; i++) {
-			processName += titles[i] + " ";
-		}*/
-		//String processString = (String) Globals.processString;
-		
+	
 		String parameters = processString.substring(processString.indexOf("(") + 1, processString.indexOf(")"));
 		processName += " " + parameters;
 		System.out.println(processName);
 		Globals.tree.addChild(new TreeNode(processName,image,processString));
 		((Stage)grd.getScene().getWindow()).close();
 	}
+	public void addFilter() {
+		String processName = title+": ";
+	
+		String parameters = processString.substring(processString.indexOf("(") + 1, processString.indexOf(")"));
+		processName += " " + parameters;
+		System.out.println(processName);
+		Globals.tree.addChild(new TreeNode(processName,processString));
+		((Stage)grd.getScene().getWindow()).close();
+	}
+	
 	public void deleteFilter() {
 		//TODO set previous node image to imageview
 		TreeItem<TreeNode> item = Globals.tree.getLastAddedNode();

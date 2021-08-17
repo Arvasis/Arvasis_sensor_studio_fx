@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.Main;
+import application.ArvasisSensorStudioFx;
 import arvasis.camera.ArvasisInspectClient;
 import arvasis.camera.Camera;
 import arvasis.camera.VirtualCamera;
@@ -14,6 +14,8 @@ import arvasis.sensor.studio.tree.TreeNode;
 import arvasis.tool.RadioButton;
 import arvasis.tool.visualization.DataVisualizer;
 import globals.Globals;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -56,7 +58,7 @@ public class MenuController implements Initializable {
 	@FXML
 	public void newJob() {
 
-		Main main = new Main();
+		ArvasisSensorStudioFx main = new ArvasisSensorStudioFx();
 		main.start(new Stage());
 	}
 
@@ -151,12 +153,14 @@ public class MenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		cbLang.setItems(FXCollections.observableArrayList("EN", "TR"));
 		lang = cbLang.getItems().get(0);
-		// lang = table.getValueAt(table.getSelectedRow(), 0).toString();
 		Globals.setLanguage(lang);
-		/*
-		 * mp.initText(); ap.initText(); rp.init(); bp.init();
-		 */
-		// tabbedPane.setTitleAt(0, Globals.getLanguage().getString("ImagePanel"));
+		cbLang.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+				initText();
+			}
+		});
 	}
 
 	public ComboBox<Object> getCbCamera() {
@@ -170,5 +174,8 @@ public class MenuController implements Initializable {
 		Globals.setLanguage(lang);
 
 	}
-
+	private void initText() {
+		btnClose.setText(Globals.getLanguage().getString("Menu.Exit"));
+		btnTakePhoto.setText(Globals.getLanguage().getString("Menu.TakePhoto"));
+	}
 }

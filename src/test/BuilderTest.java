@@ -1,8 +1,8 @@
 package test;
 
 import arvasis.drawing.GraphicsIO;
-import builder.InterfaceBuilder;
 import interfacebuilder.FiltersFrame;
+import interfacebuilder.InterfaceBuilder;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
