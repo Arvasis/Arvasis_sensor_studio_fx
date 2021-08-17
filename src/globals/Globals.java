@@ -15,6 +15,7 @@ import arvasis.sensor.studio.tree.ArvasisTree;
 import controller.MainController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import scriptEngine.ArvasisJavaScriptEngine2;
 
 public class Globals {
 

@@ -1,50 +1,58 @@
 package test;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+
+
 import arvasis.drawing.GraphicsIO;
-import arvasis.tool.visualization.DataVisualizer;
-import globals.Globals;
-import javafx.scene.control.ColorPicker;
 
 public class EngineTest {
 	public static void main(String[] args) {
-		BufferedImage img=null;
+		
+	/*	BufferedImage img = null;
 		try {
-			img = GraphicsIO.readBufferedImage("C:\\Users\\Arvasis\\Desktop\\ITFusAlt22x.png");
+			img = GraphicsIO.readBufferedImage("C:\\Users\\Arvasis\\Documents\\KT\\img\\642969956309746.jpg");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ScriptEngine engine=new NashornScriptEngineFactory().getScriptEngine();
+		try {
+			engine.eval("print('a')");
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
+		System.out.println(engine);*/
+		// 1. example
+	/*	  Context cx = Context.enter();
+		  String script = "function abc(x,y) {return x+y;}";
+		    Context context = Context.enter();
+		    try {
+		        ScriptableObject scope = context.initStandardObjects();
+		        Scriptable that = context.newObject(scope);
+		        Function fct = context.compileFunction(scope, script, "script", 1, null);
+		        Object result = fct.call(context, scope, that, new Object[] { 2, 3 });
+		        System.out.println(Context.jsToJava(result, int.class));
+		    } 
+		    finally {
+		        Context.exit();
+		    }
+		    */
+		//2. example
+		 /*   script = "3 + 2 * (4*5)";
+		    context = Context.enter();
 
-		/*
-		 * Globals.runScript(img,
-		 * "var builder = new Packages.java.lang.ProcessBuilder(\"gedit\"); \r\n" +
-		 * "                    builder.start();" +
-		 * "  var robot = new java.awt.Robot();\r\n" +
-		 * "                    robot.delay(1000);" + "var res=barcode;\r\n" +
-		 * "		                    if(!res.equals(\"\")){\r\n" +
-		 * "		                        var keys=res.toUpperCase().toCharArray();\r\n"
-		 * + "		                        for (var i = 0; i < keys.length; i++) {\r\n"
-		 * + "		                            \r\n" +
-		 * "		                            robot.keyPress(keys[i]);\r\n" +
-		 * "		                            robot.keyRelease(keys[i]);\r\n" +
-		 * "		                            robot.delay(40);\r\n" +
-		 * "		                        }\r\n" +
-		 * "		                        robot.keyPress(KeyEvent.VK_ENTER);\r\n" +
-		 * "		                        robot.keyRelease(KeyEvent.VK_ENTER);\r\n" +
-		 * "		                        \r\n" +
-		 * "		                        java.lang.Thread.sleep(100);\r\n" +
-		 * "		                    }");
-		 */
-		//System.out.println(Globals.engine.getScript());
-	//	Globals.addObjectToEngine(img, "image");
-		//System.out.println(Globals.engine.getScript());
-		//Globals.runScript("import arvasis.drawing.GraphicsIO as GraphicsIO;");
-		Globals.runScript("image=GraphicsIO.applyCanny(image);");
-		DataVisualizer.showImage((BufferedImage)Globals.engine.getVar("image"));
+		    try{
+		        Scriptable scope = context.initStandardObjects();
+		        Object result = context.evaluateString(scope, script, "<cmd>", 1, null);
+		        System.out.println(result);
+		    }
+		    finally{
+		        Context.exit();
+		    }*/
 	
+		
 	}
 
 }

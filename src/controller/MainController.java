@@ -20,6 +20,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -31,7 +32,7 @@ public class MainController implements Initializable {
 	private ImageView imagePanel;
 
 	public TitledPane applicationStepsPanel;
-	public HBox menuPanel;
+	public GridPane menuPanel;
 	public MenuController menuController;
 
 	public void setImage(Object image) {
@@ -82,7 +83,7 @@ public class MainController implements Initializable {
 		return obj;
 	}
 
-	public HBox getMenuPanel() {
+	public GridPane getMenuPanel() {
 		return menuPanel;
 
 	}
